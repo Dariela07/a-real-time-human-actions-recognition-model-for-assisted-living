@@ -1,0 +1,971 @@
+2024/11/26 02:33:14 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.20 (default, Oct  3 2024, 15:24:27) [GCC 11.2.0]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 1133883385
+    GPU 0: Tesla V100-PCIE-16GB
+    CUDA_HOME: /usr/local/cuda
+    NVCC: Cuda compilation tools, release 11.1, V11.1.74
+    GCC: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+    PyTorch: 2.1.2
+    PyTorch compiling details: PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201703
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.1.1 (Git Hash 64f6bcbcbab628e96f33a62c3e975f8535a7bde4)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.8
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_90,code=sm_90;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.7
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.8, CUDNN_VERSION=8.7.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=old-style-cast -Wno-invalid-partial-specialization -Wno-unused-private-field -Wno-aligned-allocation-unavailable -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Werror=cast-function-type -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_DISABLE_GPU_ASSERTS=ON, TORCH_VERSION=2.1.2, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.16.2
+    OpenCV: 4.10.0
+    MMEngine: 0.10.5
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 1133883385
+    diff_rank_seed: False
+    deterministic: False
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+2024/11/26 02:33:14 - mmengine - INFO - Config:
+ann_file_test = 'data/normal_vs_3critical/normal_vs_3critical_test.txt'
+ann_file_train = 'data/normal_vs_3critical/normal_vs_3critical_train.txt'
+ann_file_val = 'data/normal_vs_3critical/normal_vs_3critical_val.txt'
+data_root = 'data/normal_vs_3critical/train'
+data_root_test = 'data/normal_vs_3critical/test'
+data_root_val = 'data/normal_vs_3critical/val'
+dataset_type = 'VideoDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=3, max_keep_ckpts=5, save_best='auto', type='CheckpointHook'),
+    logger=dict(ignore_last=False, interval=100, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    runtime_info=dict(type='RuntimeInfoHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    sync_buffers=dict(type='SyncBuffersHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(draw_confusion_matrix=True, type='VisualizationHook'))
+default_scope = 'mmaction'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+file_client_args = dict(io_backend='disk')
+launcher = 'none'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(by_epoch=True, type='LogProcessor', window_size=20)
+model = dict(
+    backbone=dict(
+        conv1_kernel=(
+            5,
+            7,
+            7,
+        ),
+        conv1_stride_t=2,
+        conv_cfg=dict(type='Conv3d'),
+        depth=50,
+        inflate=(
+            (
+                1,
+                1,
+                1,
+            ),
+            (
+                1,
+                0,
+                1,
+                0,
+            ),
+            (
+                1,
+                0,
+                1,
+                0,
+                1,
+                0,
+            ),
+            (
+                0,
+                1,
+                0,
+            ),
+        ),
+        norm_eval=False,
+        pool1_stride_t=2,
+        pretrained='torchvision://resnet50',
+        pretrained2d=True,
+        type='ResNet3d',
+        zero_init_residual=False),
+    cls_head=dict(
+        average_clips='prob',
+        dropout_ratio=0.5,
+        in_channels=2048,
+        init_std=0.01,
+        loss_cls=dict(
+            class_weight=[
+                1.0,
+                1.0,
+                1.0,
+                0.3,
+            ],
+            loss_weight=1.0,
+            type='CrossEntropyLoss'),
+        num_classes=4,
+        spatial_type='avg',
+        type='I3DHead'),
+    data_preprocessor=dict(
+        format_shape='NCTHW',
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='ActionDataPreprocessor'),
+    type='Recognizer3D')
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=40, norm_type=2),
+    optimizer=dict(lr=0.0001, momentum=0.9, type='SGD', weight_decay=0.0001))
+param_scheduler = [
+    dict(
+        begin=0,
+        by_epoch=True,
+        convert_to_iter_based=True,
+        end=7,
+        start_factor=0.1,
+        type='LinearLR'),
+    dict(
+        T_max=50,
+        begin=7,
+        by_epoch=True,
+        end=60,
+        eta_min=0,
+        type='CosineAnnealingLR'),
+]
+randomness = dict(deterministic=False, diff_rank_seed=False, seed=None)
+resume = False
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='data/normal_vs_3critical/normal_vs_3critical_test.txt',
+        data_prefix=dict(video='data/normal_vs_3critical/val'),
+        pipeline=[
+            dict(io_backend='disk', type='DecordInit'),
+            dict(
+                clip_len=32,
+                frame_interval=2,
+                num_clips=10,
+                test_mode=True,
+                type='SampleFrames'),
+            dict(type='DecordDecode'),
+            dict(scale=(
+                -1,
+                256,
+            ), type='Resize'),
+            dict(crop_size=256, type='ThreeCrop'),
+            dict(input_format='NCTHW', type='FormatShape'),
+            dict(type='PackActionInputs'),
+        ],
+        test_mode=True,
+        type='VideoDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(type='AccMetric')
+test_pipeline = [
+    dict(io_backend='disk', type='DecordInit'),
+    dict(
+        clip_len=32,
+        frame_interval=2,
+        num_clips=10,
+        test_mode=True,
+        type='SampleFrames'),
+    dict(type='DecordDecode'),
+    dict(scale=(
+        -1,
+        256,
+    ), type='Resize'),
+    dict(crop_size=256, type='ThreeCrop'),
+    dict(input_format='NCTHW', type='FormatShape'),
+    dict(type='PackActionInputs'),
+]
+train_cfg = dict(
+    max_epochs=60, type='EpochBasedTrainLoop', val_begin=1, val_interval=2)
+train_dataloader = dict(
+    batch_size=8,
+    dataset=dict(
+        ann_file='data/normal_vs_3critical/normal_vs_3critical_train.txt',
+        data_prefix=dict(video='data/normal_vs_3critical/train'),
+        pipeline=[
+            dict(io_backend='disk', type='DecordInit'),
+            dict(
+                clip_len=32,
+                frame_interval=2,
+                num_clips=1,
+                type='SampleFrames'),
+            dict(type='DecordDecode'),
+            dict(scale=(
+                -1,
+                256,
+            ), type='Resize'),
+            dict(
+                input_size=224,
+                max_wh_scale_gap=0,
+                random_crop=False,
+                scales=(
+                    1,
+                    0.8,
+                ),
+                type='MultiScaleCrop'),
+            dict(keep_ratio=False, scale=(
+                224,
+                224,
+            ), type='Resize'),
+            dict(flip_ratio=0.5, type='Flip'),
+            dict(input_format='NCTHW', type='FormatShape'),
+            dict(type='PackActionInputs'),
+        ],
+        type='VideoDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(io_backend='disk', type='DecordInit'),
+    dict(clip_len=32, frame_interval=2, num_clips=1, type='SampleFrames'),
+    dict(type='DecordDecode'),
+    dict(scale=(
+        -1,
+        256,
+    ), type='Resize'),
+    dict(
+        input_size=224,
+        max_wh_scale_gap=0,
+        random_crop=False,
+        scales=(
+            1,
+            0.8,
+        ),
+        type='MultiScaleCrop'),
+    dict(keep_ratio=False, scale=(
+        224,
+        224,
+    ), type='Resize'),
+    dict(flip_ratio=0.5, type='Flip'),
+    dict(input_format='NCTHW', type='FormatShape'),
+    dict(type='PackActionInputs'),
+]
+val_cfg = dict(type='ValLoop')
+val_dataloader = dict(
+    batch_size=8,
+    dataset=dict(
+        ann_file='data/normal_vs_3critical/normal_vs_3critical_val.txt',
+        data_prefix=dict(video='data/normal_vs_3critical/val'),
+        pipeline=[
+            dict(io_backend='disk', type='DecordInit'),
+            dict(
+                clip_len=32,
+                frame_interval=2,
+                num_clips=1,
+                test_mode=True,
+                type='SampleFrames'),
+            dict(type='DecordDecode'),
+            dict(scale=(
+                -1,
+                256,
+            ), type='Resize'),
+            dict(crop_size=224, type='CenterCrop'),
+            dict(input_format='NCTHW', type='FormatShape'),
+            dict(type='PackActionInputs'),
+        ],
+        test_mode=True,
+        type='VideoDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(type='AccMetric')
+val_pipeline = [
+    dict(io_backend='disk', type='DecordInit'),
+    dict(
+        clip_len=32,
+        frame_interval=2,
+        num_clips=1,
+        test_mode=True,
+        type='SampleFrames'),
+    dict(type='DecordDecode'),
+    dict(scale=(
+        -1,
+        256,
+    ), type='Resize'),
+    dict(crop_size=224, type='CenterCrop'),
+    dict(input_format='NCTHW', type='FormatShape'),
+    dict(type='PackActionInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    type='ActionVisualizer', vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs/i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60'
+
+2024/11/26 02:33:16 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+2024/11/26 02:33:16 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) VisualizationHook                  
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) VisualizationHook                  
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+2024/11/26 02:33:17 - mmengine - INFO - load model from: torchvision://resnet50
+2024/11/26 02:33:18 - mmengine - INFO - These parameters in the 2d checkpoint are not loaded: {'fc.weight', 'fc.bias'}
+Name of parameter - Initialization information
+
+backbone.conv1.conv.weight - torch.Size([64, 3, 5, 7, 7]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.conv1.bn.weight - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.conv1.bn.bias - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.0.conv1.conv.weight - torch.Size([64, 64, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.0.conv1.bn.weight - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.0.conv1.bn.bias - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.0.conv2.conv.weight - torch.Size([64, 64, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.0.conv2.bn.weight - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.0.conv2.bn.bias - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.0.conv3.conv.weight - torch.Size([256, 64, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.0.conv3.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.0.conv3.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.0.downsample.conv.weight - torch.Size([256, 64, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.0.downsample.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.0.downsample.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.1.conv1.conv.weight - torch.Size([64, 256, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.1.conv1.bn.weight - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.1.conv1.bn.bias - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.1.conv2.conv.weight - torch.Size([64, 64, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.1.conv2.bn.weight - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.1.conv2.bn.bias - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.1.conv3.conv.weight - torch.Size([256, 64, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.1.conv3.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.1.conv3.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.2.conv1.conv.weight - torch.Size([64, 256, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.2.conv1.bn.weight - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.2.conv1.bn.bias - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.2.conv2.conv.weight - torch.Size([64, 64, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.2.conv2.bn.weight - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.2.conv2.bn.bias - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.2.conv3.conv.weight - torch.Size([256, 64, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.2.conv3.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer1.2.conv3.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.0.conv1.conv.weight - torch.Size([128, 256, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.0.conv1.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.0.conv1.bn.bias - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.0.conv2.conv.weight - torch.Size([128, 128, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.0.conv2.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.0.conv2.bn.bias - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.0.conv3.conv.weight - torch.Size([512, 128, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.0.conv3.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.0.conv3.bn.bias - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.0.downsample.conv.weight - torch.Size([512, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.0.downsample.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.0.downsample.bn.bias - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.1.conv1.conv.weight - torch.Size([128, 512, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.1.conv1.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.1.conv1.bn.bias - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.1.conv2.conv.weight - torch.Size([128, 128, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.1.conv2.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.1.conv2.bn.bias - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.1.conv3.conv.weight - torch.Size([512, 128, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.1.conv3.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.1.conv3.bn.bias - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.2.conv1.conv.weight - torch.Size([128, 512, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.2.conv1.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.2.conv1.bn.bias - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.2.conv2.conv.weight - torch.Size([128, 128, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.2.conv2.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.2.conv2.bn.bias - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.2.conv3.conv.weight - torch.Size([512, 128, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.2.conv3.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.2.conv3.bn.bias - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.3.conv1.conv.weight - torch.Size([128, 512, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.3.conv1.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.3.conv1.bn.bias - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.3.conv2.conv.weight - torch.Size([128, 128, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.3.conv2.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.3.conv2.bn.bias - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.3.conv3.conv.weight - torch.Size([512, 128, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.3.conv3.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer2.3.conv3.bn.bias - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.0.conv1.conv.weight - torch.Size([256, 512, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.0.conv1.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.0.conv1.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.0.conv2.conv.weight - torch.Size([256, 256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.0.conv2.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.0.conv2.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.0.conv3.conv.weight - torch.Size([1024, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.0.conv3.bn.weight - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.0.conv3.bn.bias - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.0.downsample.conv.weight - torch.Size([1024, 512, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.0.downsample.bn.weight - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.0.downsample.bn.bias - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.1.conv1.conv.weight - torch.Size([256, 1024, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.1.conv1.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.1.conv1.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.1.conv2.conv.weight - torch.Size([256, 256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.1.conv2.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.1.conv2.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.1.conv3.conv.weight - torch.Size([1024, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.1.conv3.bn.weight - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.1.conv3.bn.bias - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.2.conv1.conv.weight - torch.Size([256, 1024, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.2.conv1.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.2.conv1.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.2.conv2.conv.weight - torch.Size([256, 256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.2.conv2.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.2.conv2.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.2.conv3.conv.weight - torch.Size([1024, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.2.conv3.bn.weight - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.2.conv3.bn.bias - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.3.conv1.conv.weight - torch.Size([256, 1024, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.3.conv1.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.3.conv1.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.3.conv2.conv.weight - torch.Size([256, 256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.3.conv2.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.3.conv2.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.3.conv3.conv.weight - torch.Size([1024, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.3.conv3.bn.weight - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.3.conv3.bn.bias - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.4.conv1.conv.weight - torch.Size([256, 1024, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.4.conv1.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.4.conv1.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.4.conv2.conv.weight - torch.Size([256, 256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.4.conv2.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.4.conv2.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.4.conv3.conv.weight - torch.Size([1024, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.4.conv3.bn.weight - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.4.conv3.bn.bias - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.5.conv1.conv.weight - torch.Size([256, 1024, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.5.conv1.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.5.conv1.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.5.conv2.conv.weight - torch.Size([256, 256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.5.conv2.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.5.conv2.bn.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.5.conv3.conv.weight - torch.Size([1024, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.5.conv3.bn.weight - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer3.5.conv3.bn.bias - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.0.conv1.conv.weight - torch.Size([512, 1024, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.0.conv1.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.0.conv1.bn.bias - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.0.conv2.conv.weight - torch.Size([512, 512, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.0.conv2.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.0.conv2.bn.bias - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.0.conv3.conv.weight - torch.Size([2048, 512, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.0.conv3.bn.weight - torch.Size([2048]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.0.conv3.bn.bias - torch.Size([2048]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.0.downsample.conv.weight - torch.Size([2048, 1024, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.0.downsample.bn.weight - torch.Size([2048]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.0.downsample.bn.bias - torch.Size([2048]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.1.conv1.conv.weight - torch.Size([512, 2048, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.1.conv1.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.1.conv1.bn.bias - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.1.conv2.conv.weight - torch.Size([512, 512, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.1.conv2.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.1.conv2.bn.bias - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.1.conv3.conv.weight - torch.Size([2048, 512, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.1.conv3.bn.weight - torch.Size([2048]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.1.conv3.bn.bias - torch.Size([2048]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.2.conv1.conv.weight - torch.Size([512, 2048, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.2.conv1.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.2.conv1.bn.bias - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.2.conv2.conv.weight - torch.Size([512, 512, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.2.conv2.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.2.conv2.bn.bias - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.2.conv3.conv.weight - torch.Size([2048, 512, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.2.conv3.bn.weight - torch.Size([2048]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+backbone.layer4.2.conv3.bn.bias - torch.Size([2048]): 
+Initialized by user-defined `init_weights` in ResNet3d  
+
+cls_head.fc_cls.weight - torch.Size([4, 2048]): 
+Initialized by user-defined `init_weights` in I3DHead  
+
+cls_head.fc_cls.bias - torch.Size([4]): 
+Initialized by user-defined `init_weights` in I3DHead  
+2024/11/26 02:33:18 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/11/26 02:33:18 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/11/26 02:33:18 - mmengine - INFO - Checkpoints will be saved to /home/jupyter-yixuan/mmaction2/work_dirs/i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60.
+2024/11/26 02:34:20 - mmengine - INFO - Epoch(train)  [1][100/567]  lr: 1.2245e-05  eta: 5:49:34  time: 0.5350  data_time: 0.0093  memory: 5067  grad_norm: 14.0062  loss: 1.4095  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.4095
+2024/11/26 02:35:12 - mmengine - INFO - Epoch(train)  [1][200/567]  lr: 1.4514e-05  eta: 5:22:17  time: 0.5300  data_time: 0.0090  memory: 5067  grad_norm: 13.9120  loss: 1.3982  top1_acc: 0.0000  top5_acc: 1.0000  loss_cls: 1.3982
+2024/11/26 02:36:06 - mmengine - INFO - Epoch(train)  [1][300/567]  lr: 1.6782e-05  eta: 5:14:51  time: 0.5425  data_time: 0.0097  memory: 5067  grad_norm: 14.7671  loss: 1.4360  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.4360
+2024/11/26 02:37:00 - mmengine - INFO - Epoch(train)  [1][400/567]  lr: 1.9050e-05  eta: 5:11:38  time: 0.5431  data_time: 0.0105  memory: 5067  grad_norm: 14.6849  loss: 1.3638  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 1.3638
+2024/11/26 02:37:55 - mmengine - INFO - Epoch(train)  [1][500/567]  lr: 2.1318e-05  eta: 5:09:53  time: 0.5561  data_time: 0.0086  memory: 5067  grad_norm: 14.0546  loss: 1.3661  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3661
+2024/11/26 02:38:32 - mmengine - INFO - Exp name: i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60_20241126_023313
+2024/11/26 02:38:32 - mmengine - INFO - Epoch(train)  [1][567/567]  lr: 2.2838e-05  eta: 5:09:06  time: 0.5503  data_time: 0.0069  memory: 5067  grad_norm: 14.5863  loss: 1.3685  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 1.3685
+2024/11/26 02:39:36 - mmengine - INFO - Epoch(train)  [2][100/567]  lr: 2.5106e-05  eta: 5:15:01  time: 0.6039  data_time: 0.0346  memory: 5067  grad_norm: 14.0933  loss: 1.3909  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3909
+2024/11/26 02:40:31 - mmengine - INFO - Epoch(train)  [2][200/567]  lr: 2.7374e-05  eta: 5:13:18  time: 0.5549  data_time: 0.0085  memory: 5067  grad_norm: 14.8836  loss: 1.3756  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3756
+2024/11/26 02:41:27 - mmengine - INFO - Epoch(train)  [2][300/567]  lr: 2.9642e-05  eta: 5:11:56  time: 0.5585  data_time: 0.0100  memory: 5067  grad_norm: 14.2560  loss: 1.3648  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.3648
+2024/11/26 02:42:23 - mmengine - INFO - Epoch(train)  [2][400/567]  lr: 3.1910e-05  eta: 5:10:45  time: 0.5627  data_time: 0.0089  memory: 5067  grad_norm: 14.7814  loss: 1.3724  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3724
+2024/11/26 02:42:42 - mmengine - INFO - Exp name: i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60_20241126_023313
+2024/11/26 02:43:19 - mmengine - INFO - Epoch(train)  [2][500/567]  lr: 3.4178e-05  eta: 5:09:33  time: 0.5613  data_time: 0.0078  memory: 5067  grad_norm: 14.3305  loss: 1.3457  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3457
+2024/11/26 02:43:57 - mmengine - INFO - Exp name: i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60_20241126_023313
+2024/11/26 02:43:57 - mmengine - INFO - Epoch(train)  [2][567/567]  lr: 3.5698e-05  eta: 5:08:56  time: 0.5628  data_time: 0.0083  memory: 5067  grad_norm: 14.7716  loss: 1.3636  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3636
+2024/11/26 02:44:50 - mmengine - INFO - Epoch(val) [2][95/95]    acc/top1: 0.5782  acc/top5: 1.0000  acc/mean1: 0.3965  data_time: 0.3958  time: 0.5617
+2024/11/26 02:44:51 - mmengine - INFO - The best checkpoint with 0.5782 acc/top1 at 2 epoch is saved to best_acc_top1_epoch_2.pth.
+2024/11/26 02:45:54 - mmengine - INFO - Epoch(train)  [3][100/567]  lr: 3.7966e-05  eta: 5:11:04  time: 0.5892  data_time: 0.0233  memory: 5067  grad_norm: 14.2179  loss: 1.3464  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3464
+2024/11/26 02:46:50 - mmengine - INFO - Epoch(train)  [3][200/567]  lr: 4.0234e-05  eta: 5:09:43  time: 0.5572  data_time: 0.0096  memory: 5067  grad_norm: 14.3325  loss: 1.3511  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3511
+2024/11/26 02:47:46 - mmengine - INFO - Epoch(train)  [3][300/567]  lr: 4.2503e-05  eta: 5:08:25  time: 0.5666  data_time: 0.0108  memory: 5067  grad_norm: 14.7360  loss: 1.3284  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3284
+2024/11/26 02:48:42 - mmengine - INFO - Epoch(train)  [3][400/567]  lr: 4.4771e-05  eta: 5:07:17  time: 0.5575  data_time: 0.0092  memory: 5067  grad_norm: 14.8855  loss: 1.2881  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.2881
+2024/11/26 02:49:38 - mmengine - INFO - Epoch(train)  [3][500/567]  lr: 4.7039e-05  eta: 5:06:11  time: 0.5625  data_time: 0.0086  memory: 5067  grad_norm: 14.4651  loss: 1.2835  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.2835
+2024/11/26 02:50:15 - mmengine - INFO - Exp name: i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60_20241126_023313
+2024/11/26 02:50:15 - mmengine - INFO - Epoch(train)  [3][567/567]  lr: 4.8558e-05  eta: 5:05:14  time: 0.5526  data_time: 0.0070  memory: 5067  grad_norm: 15.1314  loss: 1.2659  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.2659
+2024/11/26 02:50:15 - mmengine - INFO - Saving checkpoint at 3 epochs
+2024/11/26 02:51:19 - mmengine - INFO - Epoch(train)  [4][100/567]  lr: 5.0827e-05  eta: 5:06:19  time: 0.5844  data_time: 0.0260  memory: 5067  grad_norm: 14.9798  loss: 1.3074  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3074
+2024/11/26 02:52:15 - mmengine - INFO - Epoch(train)  [4][200/567]  lr: 5.3095e-05  eta: 5:04:55  time: 0.5517  data_time: 0.0088  memory: 5067  grad_norm: 15.5271  loss: 1.2509  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.2509
+2024/11/26 02:53:09 - mmengine - INFO - Exp name: i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60_20241126_023313
+2024/11/26 02:53:10 - mmengine - INFO - Epoch(train)  [4][300/567]  lr: 5.5363e-05  eta: 5:03:25  time: 0.5502  data_time: 0.0087  memory: 5067  grad_norm: 15.9653  loss: 1.2510  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 1.2510
+2024/11/26 02:54:05 - mmengine - INFO - Epoch(train)  [4][400/567]  lr: 5.7631e-05  eta: 5:02:02  time: 0.5517  data_time: 0.0086  memory: 5067  grad_norm: 15.3912  loss: 1.2181  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 1.2181
+2024/11/26 02:55:00 - mmengine - INFO - Epoch(train)  [4][500/567]  lr: 5.9899e-05  eta: 5:00:47  time: 0.5614  data_time: 0.0106  memory: 5067  grad_norm: 15.2113  loss: 1.1932  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.1932
+2024/11/26 02:55:38 - mmengine - INFO - Exp name: i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60_20241126_023313
+2024/11/26 02:55:38 - mmengine - INFO - Epoch(train)  [4][567/567]  lr: 6.1419e-05  eta: 5:00:00  time: 0.5556  data_time: 0.0078  memory: 5067  grad_norm: 14.4398  loss: 1.1258  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.1258
+2024/11/26 02:56:31 - mmengine - INFO - Epoch(val) [4][95/95]    acc/top1: 0.4629  acc/top5: 1.0000  acc/mean1: 0.5617  data_time: 0.3936  time: 0.5555
+2024/11/26 02:57:35 - mmengine - INFO - Epoch(train)  [5][100/567]  lr: 6.3687e-05  eta: 5:00:37  time: 0.5797  data_time: 0.0224  memory: 5067  grad_norm: 15.7470  loss: 1.1581  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 1.1581
+2024/11/26 02:58:31 - mmengine - INFO - Epoch(train)  [5][200/567]  lr: 6.5955e-05  eta: 4:59:24  time: 0.5625  data_time: 0.0112  memory: 5067  grad_norm: 15.2032  loss: 1.1132  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.1132
+2024/11/26 02:59:27 - mmengine - INFO - Epoch(train)  [5][300/567]  lr: 6.8223e-05  eta: 4:58:20  time: 0.5614  data_time: 0.0085  memory: 5067  grad_norm: 15.8183  loss: 1.1466  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.1466
+2024/11/26 03:00:22 - mmengine - INFO - Epoch(train)  [5][400/567]  lr: 7.0491e-05  eta: 4:57:06  time: 0.5520  data_time: 0.0081  memory: 5067  grad_norm: 15.5985  loss: 1.0926  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 1.0926
+2024/11/26 03:01:17 - mmengine - INFO - Epoch(train)  [5][500/567]  lr: 7.2760e-05  eta: 4:55:49  time: 0.5480  data_time: 0.0090  memory: 5067  grad_norm: 14.3521  loss: 1.0259  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.0259
+2024/11/26 03:01:55 - mmengine - INFO - Exp name: i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60_20241126_023313
+2024/11/26 03:01:55 - mmengine - INFO - Epoch(train)  [5][567/567]  lr: 7.4279e-05  eta: 4:55:02  time: 0.5559  data_time: 0.0072  memory: 5067  grad_norm: 15.9189  loss: 1.0381  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.0381
+2024/11/26 03:02:58 - mmengine - INFO - Epoch(train)  [6][100/567]  lr: 7.6547e-05  eta: 4:55:18  time: 0.5593  data_time: 0.0116  memory: 5067  grad_norm: 16.3980  loss: 1.0672  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 1.0672
+2024/11/26 03:03:34 - mmengine - INFO - Exp name: i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60_20241126_023313
+2024/11/26 03:03:54 - mmengine - INFO - Epoch(train)  [6][200/567]  lr: 7.8816e-05  eta: 4:54:04  time: 0.5544  data_time: 0.0081  memory: 5067  grad_norm: 14.2431  loss: 0.9890  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 0.9890
+2024/11/26 03:04:49 - mmengine - INFO - Epoch(train)  [6][300/567]  lr: 8.1084e-05  eta: 4:52:49  time: 0.5525  data_time: 0.0097  memory: 5067  grad_norm: 16.6048  loss: 1.0590  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.0590
+2024/11/26 03:05:44 - mmengine - INFO - Epoch(train)  [6][400/567]  lr: 8.3352e-05  eta: 4:51:37  time: 0.5508  data_time: 0.0101  memory: 5067  grad_norm: 15.9404  loss: 1.0613  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.0613
+2024/11/26 03:06:40 - mmengine - INFO - Epoch(train)  [6][500/567]  lr: 8.5620e-05  eta: 4:50:29  time: 0.5592  data_time: 0.0108  memory: 5067  grad_norm: 17.0909  loss: 1.1125  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.1125
+2024/11/26 03:07:17 - mmengine - INFO - Exp name: i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60_20241126_023313
+2024/11/26 03:07:17 - mmengine - INFO - Epoch(train)  [6][567/567]  lr: 8.7140e-05  eta: 4:49:43  time: 0.5523  data_time: 0.0076  memory: 5067  grad_norm: 17.3074  loss: 1.1029  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.1029
+2024/11/26 03:07:17 - mmengine - INFO - Saving checkpoint at 6 epochs
+2024/11/26 03:08:11 - mmengine - INFO - Epoch(val) [6][95/95]    acc/top1: 0.6167  acc/top5: 1.0000  acc/mean1: 0.6775  data_time: 0.3943  time: 0.5544
+2024/11/26 03:08:11 - mmengine - INFO - The previous best checkpoint /home/jupyter-yixuan/mmaction2/work_dirs/i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60/best_acc_top1_epoch_2.pth is removed
+2024/11/26 03:08:11 - mmengine - INFO - The best checkpoint with 0.6167 acc/top1 at 6 epoch is saved to best_acc_top1_epoch_6.pth.
+2024/11/26 03:09:16 - mmengine - INFO - Epoch(train)  [7][100/567]  lr: 8.9408e-05  eta: 4:49:47  time: 0.5947  data_time: 0.0276  memory: 5067  grad_norm: 15.0520  loss: 0.9375  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.9375
+2024/11/26 03:10:12 - mmengine - INFO - Epoch(train)  [7][200/567]  lr: 9.1676e-05  eta: 4:48:44  time: 0.5589  data_time: 0.0082  memory: 5067  grad_norm: 15.1319  loss: 1.0458  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.0458
+2024/11/26 03:11:08 - mmengine - INFO - Epoch(train)  [7][300/567]  lr: 9.3944e-05  eta: 4:47:41  time: 0.5559  data_time: 0.0093  memory: 5067  grad_norm: 16.4600  loss: 1.0205  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.0205
+2024/11/26 03:12:03 - mmengine - INFO - Epoch(train)  [7][400/567]  lr: 9.6212e-05  eta: 4:46:27  time: 0.5498  data_time: 0.0095  memory: 5067  grad_norm: 15.8392  loss: 0.9481  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.9481
+2024/11/26 03:12:58 - mmengine - INFO - Epoch(train)  [7][500/567]  lr: 9.8480e-05  eta: 4:45:18  time: 0.5567  data_time: 0.0079  memory: 5067  grad_norm: 16.8034  loss: 0.9601  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.9601
+2024/11/26 03:13:36 - mmengine - INFO - Exp name: i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60_20241126_023313
+2024/11/26 03:13:36 - mmengine - INFO - Epoch(train)  [7][567/567]  lr: 1.0000e-04  eta: 4:44:33  time: 0.5578  data_time: 0.0073  memory: 5067  grad_norm: 16.4372  loss: 0.9605  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 0.9605
+2024/11/26 03:13:59 - mmengine - INFO - Exp name: i3d_imagenet-pretrained-r50_8xb8-32x2x1-100e_kinetics400-rgb_transfer_epoch60_20241126_023313
+2024/11/26 03:14:39 - mmengine - INFO - Epoch(train)  [8][100/567]  lr: 1.0000e-04  eta: 4:44:26  time: 0.5703  data_time: 0.0190  memory: 5067  grad_norm: 15.4763  loss: 0.8720  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.8720
+2024/11/26 03:15:34 - mmengine - INFO - Epoch(train)  [8][200/567]  lr: 1.0000e-04  eta: 4:43:17  time: 0.5522  data_time: 0.0112  memory: 5067  grad_norm: 14.9942  loss: 0.8699  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.8699

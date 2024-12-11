@@ -1,0 +1,1586 @@
+2024/11/26 11:15:03 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.20 (default, Oct  3 2024, 15:24:27) [GCC 11.2.0]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 1120141688
+    GPU 0: Tesla V100-PCIE-16GB
+    CUDA_HOME: /usr/local/cuda
+    NVCC: Cuda compilation tools, release 11.1, V11.1.74
+    GCC: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+    PyTorch: 2.1.2
+    PyTorch compiling details: PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201703
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.1.1 (Git Hash 64f6bcbcbab628e96f33a62c3e975f8535a7bde4)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.8
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_90,code=sm_90;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.7
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.8, CUDNN_VERSION=8.7.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=old-style-cast -Wno-invalid-partial-specialization -Wno-unused-private-field -Wno-aligned-allocation-unavailable -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Werror=cast-function-type -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_DISABLE_GPU_ASSERTS=ON, TORCH_VERSION=2.1.2, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.16.2
+    OpenCV: 4.10.0
+    MMEngine: 0.10.5
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 1120141688
+    diff_rank_seed: False
+    deterministic: False
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+2024/11/26 11:15:03 - mmengine - INFO - Config:
+ann_file_test = 'data/normal_vs_3critical/normal_vs_3critical_test.txt'
+ann_file_train = 'data/normal_vs_3critical/normal_vs_3critical_train.txt'
+ann_file_val = 'data/normal_vs_3critical/normal_vs_3critical_val.txt'
+data_root = 'data/normal_vs_3critical/train'
+data_root_test = 'data/normal_vs_3critical/test'
+data_root_val = 'data/normal_vs_3critical/val'
+dataset_type = 'VideoDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=3, max_keep_ckpts=5, save_best='auto', type='CheckpointHook'),
+    logger=dict(ignore_last=False, interval=100, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    runtime_info=dict(type='RuntimeInfoHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    sync_buffers=dict(type='SyncBuffersHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(draw_confusion_matrix=True, type='VisualizationHook'))
+default_scope = 'mmaction'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+file_client_args = dict(io_backend='disk')
+launcher = 'none'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(by_epoch=True, type='LogProcessor', window_size=20)
+model = dict(
+    backbone=dict(
+        channel_ratio=8,
+        fast_pathway=dict(
+            base_channels=8,
+            conv1_kernel=(
+                5,
+                7,
+                7,
+            ),
+            conv1_stride_t=1,
+            depth=50,
+            lateral=False,
+            norm_eval=False,
+            pool1_stride_t=1,
+            pretrained=None,
+            type='resnet3d'),
+        pretrained=None,
+        resample_rate=8,
+        slow_pathway=dict(
+            conv1_kernel=(
+                1,
+                7,
+                7,
+            ),
+            conv1_stride_t=1,
+            depth=50,
+            dilations=(
+                1,
+                1,
+                1,
+                1,
+            ),
+            inflate=(
+                0,
+                0,
+                1,
+                1,
+            ),
+            lateral=True,
+            norm_eval=False,
+            pool1_stride_t=1,
+            pretrained=None,
+            type='resnet3d'),
+        speed_ratio=8,
+        type='ResNet3dSlowFast'),
+    cls_head=dict(
+        average_clips='prob',
+        dropout_ratio=0.5,
+        in_channels=2304,
+        loss_cls=dict(
+            class_weight=[
+                1.0,
+                1.0,
+                1.0,
+                0.3,
+            ],
+            loss_weight=1.0,
+            type='CrossEntropyLoss'),
+        num_classes=4,
+        spatial_type='avg',
+        type='SlowFastHead'),
+    data_preprocessor=dict(
+        format_shape='NCTHW',
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='ActionDataPreprocessor'),
+    type='Recognizer3D')
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=40, norm_type=2),
+    optimizer=dict(lr=1e-05, momentum=0.9, type='SGD', weight_decay=0.0001))
+param_scheduler = [
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=70,
+        gamma=0.1,
+        milestones=[
+            25,
+            50,
+        ],
+        type='MultiStepLR'),
+]
+randomness = dict(deterministic=False, diff_rank_seed=False, seed=None)
+resume = False
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='data/normal_vs_3critical/normal_vs_3critical_test.txt',
+        data_prefix=dict(video='data/normal_vs_3critical/test'),
+        pipeline=[
+            dict(io_backend='disk', type='DecordInit'),
+            dict(
+                clip_len=32,
+                frame_interval=2,
+                num_clips=10,
+                test_mode=True,
+                type='SampleFrames'),
+            dict(type='DecordDecode'),
+            dict(scale=(
+                -1,
+                256,
+            ), type='Resize'),
+            dict(crop_size=224, type='ThreeCrop'),
+            dict(input_format='NCTHW', type='FormatShape'),
+            dict(type='PackActionInputs'),
+        ],
+        test_mode=True,
+        type='VideoDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(metrics=[
+    dict(type='AccMetric'),
+    dict(num_classes=4, type='ConfusionMatrix'),
+])
+test_pipeline = [
+    dict(io_backend='disk', type='DecordInit'),
+    dict(
+        clip_len=32,
+        frame_interval=2,
+        num_clips=10,
+        test_mode=True,
+        type='SampleFrames'),
+    dict(type='DecordDecode'),
+    dict(scale=(
+        -1,
+        256,
+    ), type='Resize'),
+    dict(crop_size=224, type='ThreeCrop'),
+    dict(input_format='NCTHW', type='FormatShape'),
+    dict(type='PackActionInputs'),
+]
+train_cfg = dict(
+    max_epochs=50, type='EpochBasedTrainLoop', val_begin=1, val_interval=2)
+train_dataloader = dict(
+    batch_size=8,
+    dataset=dict(
+        ann_file='data/normal_vs_3critical/normal_vs_3critical_train.txt',
+        data_prefix=dict(video='data/normal_vs_3critical/train'),
+        pipeline=[
+            dict(io_backend='disk', type='DecordInit'),
+            dict(
+                clip_len=32,
+                frame_interval=2,
+                num_clips=1,
+                type='SampleFrames'),
+            dict(type='DecordDecode'),
+            dict(scale=(
+                -1,
+                256,
+            ), type='Resize'),
+            dict(type='RandomResizedCrop'),
+            dict(keep_ratio=False, scale=(
+                224,
+                224,
+            ), type='Resize'),
+            dict(flip_ratio=0.5, type='Flip'),
+            dict(input_format='NCTHW', type='FormatShape'),
+            dict(type='PackActionInputs'),
+        ],
+        type='VideoDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(io_backend='disk', type='DecordInit'),
+    dict(clip_len=32, frame_interval=2, num_clips=1, type='SampleFrames'),
+    dict(type='DecordDecode'),
+    dict(scale=(
+        -1,
+        256,
+    ), type='Resize'),
+    dict(type='RandomResizedCrop'),
+    dict(keep_ratio=False, scale=(
+        224,
+        224,
+    ), type='Resize'),
+    dict(flip_ratio=0.5, type='Flip'),
+    dict(input_format='NCTHW', type='FormatShape'),
+    dict(type='PackActionInputs'),
+]
+val_cfg = dict(type='ValLoop')
+val_dataloader = dict(
+    batch_size=8,
+    dataset=dict(
+        ann_file='data/normal_vs_3critical/normal_vs_3critical_val.txt',
+        data_prefix=dict(video='data/normal_vs_3critical/val'),
+        pipeline=[
+            dict(io_backend='disk', type='DecordInit'),
+            dict(
+                clip_len=32,
+                frame_interval=2,
+                num_clips=1,
+                test_mode=True,
+                type='SampleFrames'),
+            dict(type='DecordDecode'),
+            dict(scale=(
+                -1,
+                256,
+            ), type='Resize'),
+            dict(crop_size=224, type='CenterCrop'),
+            dict(input_format='NCTHW', type='FormatShape'),
+            dict(type='PackActionInputs'),
+        ],
+        test_mode=True,
+        type='VideoDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(metrics=[
+    dict(type='AccMetric'),
+    dict(num_classes=4, type='ConfusionMatrix'),
+])
+val_pipeline = [
+    dict(io_backend='disk', type='DecordInit'),
+    dict(
+        clip_len=32,
+        frame_interval=2,
+        num_clips=1,
+        test_mode=True,
+        type='SampleFrames'),
+    dict(type='DecordDecode'),
+    dict(scale=(
+        -1,
+        256,
+    ), type='Resize'),
+    dict(crop_size=224, type='CenterCrop'),
+    dict(input_format='NCTHW', type='FormatShape'),
+    dict(type='PackActionInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    type='ActionVisualizer', vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs/slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70'
+
+2024/11/26 11:15:05 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+2024/11/26 11:15:05 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) VisualizationHook                  
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) VisualizationHook                  
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+Name of parameter - Initialization information
+
+backbone.slow_path.conv1.conv.weight - torch.Size([64, 3, 1, 7, 7]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.conv1.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.conv1.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.0.conv1.conv.weight - torch.Size([64, 80, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1.0.conv1.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.0.conv1.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.0.conv2.conv.weight - torch.Size([64, 64, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1.0.conv2.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.0.conv2.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.0.conv3.conv.weight - torch.Size([256, 64, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1.0.conv3.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1.0.conv3.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.0.downsample.conv.weight - torch.Size([256, 80, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1.0.downsample.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.0.downsample.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.1.conv1.conv.weight - torch.Size([64, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1.1.conv1.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.1.conv1.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.1.conv2.conv.weight - torch.Size([64, 64, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1.1.conv2.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.1.conv2.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.1.conv3.conv.weight - torch.Size([256, 64, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1.1.conv3.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1.1.conv3.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.2.conv1.conv.weight - torch.Size([64, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1.2.conv1.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.2.conv1.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.2.conv2.conv.weight - torch.Size([64, 64, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1.2.conv2.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.2.conv2.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer1.2.conv3.conv.weight - torch.Size([256, 64, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1.2.conv3.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1.2.conv3.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.0.conv1.conv.weight - torch.Size([128, 320, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.0.conv1.bn.weight - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.0.conv1.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.0.conv2.conv.weight - torch.Size([128, 128, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.0.conv2.bn.weight - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.0.conv2.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.0.conv3.conv.weight - torch.Size([512, 128, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.0.conv3.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.0.conv3.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.0.downsample.conv.weight - torch.Size([512, 320, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.0.downsample.bn.weight - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.0.downsample.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.1.conv1.conv.weight - torch.Size([128, 512, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.1.conv1.bn.weight - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.1.conv1.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.1.conv2.conv.weight - torch.Size([128, 128, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.1.conv2.bn.weight - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.1.conv2.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.1.conv3.conv.weight - torch.Size([512, 128, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.1.conv3.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.1.conv3.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.2.conv1.conv.weight - torch.Size([128, 512, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.2.conv1.bn.weight - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.2.conv1.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.2.conv2.conv.weight - torch.Size([128, 128, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.2.conv2.bn.weight - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.2.conv2.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.2.conv3.conv.weight - torch.Size([512, 128, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.2.conv3.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.2.conv3.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.3.conv1.conv.weight - torch.Size([128, 512, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.3.conv1.bn.weight - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.3.conv1.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.3.conv2.conv.weight - torch.Size([128, 128, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.3.conv2.bn.weight - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.3.conv2.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer2.3.conv3.conv.weight - torch.Size([512, 128, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.3.conv3.bn.weight - torch.Size([512]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2.3.conv3.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.0.conv1.conv.weight - torch.Size([256, 640, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.0.conv1.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.0.conv1.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.0.conv2.conv.weight - torch.Size([256, 256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.0.conv2.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.0.conv2.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.0.conv3.conv.weight - torch.Size([1024, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.0.conv3.bn.weight - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.0.conv3.bn.bias - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.0.downsample.conv.weight - torch.Size([1024, 640, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.0.downsample.bn.weight - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.0.downsample.bn.bias - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.1.conv1.conv.weight - torch.Size([256, 1024, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.1.conv1.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.1.conv1.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.1.conv2.conv.weight - torch.Size([256, 256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.1.conv2.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.1.conv2.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.1.conv3.conv.weight - torch.Size([1024, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.1.conv3.bn.weight - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.1.conv3.bn.bias - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.2.conv1.conv.weight - torch.Size([256, 1024, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.2.conv1.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.2.conv1.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.2.conv2.conv.weight - torch.Size([256, 256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.2.conv2.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.2.conv2.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.2.conv3.conv.weight - torch.Size([1024, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.2.conv3.bn.weight - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.2.conv3.bn.bias - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.3.conv1.conv.weight - torch.Size([256, 1024, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.3.conv1.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.3.conv1.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.3.conv2.conv.weight - torch.Size([256, 256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.3.conv2.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.3.conv2.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.3.conv3.conv.weight - torch.Size([1024, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.3.conv3.bn.weight - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.3.conv3.bn.bias - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.4.conv1.conv.weight - torch.Size([256, 1024, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.4.conv1.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.4.conv1.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.4.conv2.conv.weight - torch.Size([256, 256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.4.conv2.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.4.conv2.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.4.conv3.conv.weight - torch.Size([1024, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.4.conv3.bn.weight - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.4.conv3.bn.bias - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.5.conv1.conv.weight - torch.Size([256, 1024, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.5.conv1.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.5.conv1.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.5.conv2.conv.weight - torch.Size([256, 256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.5.conv2.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.5.conv2.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer3.5.conv3.conv.weight - torch.Size([1024, 256, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.5.conv3.bn.weight - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3.5.conv3.bn.bias - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.0.conv1.conv.weight - torch.Size([512, 1280, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer4.0.conv1.bn.weight - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.0.conv1.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.0.conv2.conv.weight - torch.Size([512, 512, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer4.0.conv2.bn.weight - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.0.conv2.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.0.conv3.conv.weight - torch.Size([2048, 512, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer4.0.conv3.bn.weight - torch.Size([2048]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer4.0.conv3.bn.bias - torch.Size([2048]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.0.downsample.conv.weight - torch.Size([2048, 1280, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer4.0.downsample.bn.weight - torch.Size([2048]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.0.downsample.bn.bias - torch.Size([2048]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.1.conv1.conv.weight - torch.Size([512, 2048, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer4.1.conv1.bn.weight - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.1.conv1.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.1.conv2.conv.weight - torch.Size([512, 512, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer4.1.conv2.bn.weight - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.1.conv2.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.1.conv3.conv.weight - torch.Size([2048, 512, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer4.1.conv3.bn.weight - torch.Size([2048]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer4.1.conv3.bn.bias - torch.Size([2048]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.2.conv1.conv.weight - torch.Size([512, 2048, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer4.2.conv1.bn.weight - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.2.conv1.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.2.conv2.conv.weight - torch.Size([512, 512, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer4.2.conv2.bn.weight - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.2.conv2.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.layer4.2.conv3.conv.weight - torch.Size([2048, 512, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer4.2.conv3.bn.weight - torch.Size([2048]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer4.2.conv3.bn.bias - torch.Size([2048]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.slow_path.conv1_lateral.conv.weight - torch.Size([16, 8, 5, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer1_lateral.conv.weight - torch.Size([64, 32, 5, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer2_lateral.conv.weight - torch.Size([128, 64, 5, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.slow_path.layer3_lateral.conv.weight - torch.Size([256, 128, 5, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.conv1.conv.weight - torch.Size([8, 3, 5, 7, 7]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.conv1.bn.weight - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.conv1.bn.bias - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.0.conv1.conv.weight - torch.Size([8, 8, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer1.0.conv1.bn.weight - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.0.conv1.bn.bias - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.0.conv2.conv.weight - torch.Size([8, 8, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer1.0.conv2.bn.weight - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.0.conv2.bn.bias - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.0.conv3.conv.weight - torch.Size([32, 8, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer1.0.conv3.bn.weight - torch.Size([32]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer1.0.conv3.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.0.downsample.conv.weight - torch.Size([32, 8, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer1.0.downsample.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.0.downsample.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.1.conv1.conv.weight - torch.Size([8, 32, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer1.1.conv1.bn.weight - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.1.conv1.bn.bias - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.1.conv2.conv.weight - torch.Size([8, 8, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer1.1.conv2.bn.weight - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.1.conv2.bn.bias - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.1.conv3.conv.weight - torch.Size([32, 8, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer1.1.conv3.bn.weight - torch.Size([32]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer1.1.conv3.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.2.conv1.conv.weight - torch.Size([8, 32, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer1.2.conv1.bn.weight - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.2.conv1.bn.bias - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.2.conv2.conv.weight - torch.Size([8, 8, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer1.2.conv2.bn.weight - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.2.conv2.bn.bias - torch.Size([8]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer1.2.conv3.conv.weight - torch.Size([32, 8, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer1.2.conv3.bn.weight - torch.Size([32]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer1.2.conv3.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.0.conv1.conv.weight - torch.Size([16, 32, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.0.conv1.bn.weight - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.0.conv1.bn.bias - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.0.conv2.conv.weight - torch.Size([16, 16, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.0.conv2.bn.weight - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.0.conv2.bn.bias - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.0.conv3.conv.weight - torch.Size([64, 16, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.0.conv3.bn.weight - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.0.conv3.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.0.downsample.conv.weight - torch.Size([64, 32, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.0.downsample.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.0.downsample.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.1.conv1.conv.weight - torch.Size([16, 64, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.1.conv1.bn.weight - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.1.conv1.bn.bias - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.1.conv2.conv.weight - torch.Size([16, 16, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.1.conv2.bn.weight - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.1.conv2.bn.bias - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.1.conv3.conv.weight - torch.Size([64, 16, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.1.conv3.bn.weight - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.1.conv3.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.2.conv1.conv.weight - torch.Size([16, 64, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.2.conv1.bn.weight - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.2.conv1.bn.bias - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.2.conv2.conv.weight - torch.Size([16, 16, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.2.conv2.bn.weight - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.2.conv2.bn.bias - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.2.conv3.conv.weight - torch.Size([64, 16, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.2.conv3.bn.weight - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.2.conv3.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.3.conv1.conv.weight - torch.Size([16, 64, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.3.conv1.bn.weight - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.3.conv1.bn.bias - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.3.conv2.conv.weight - torch.Size([16, 16, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.3.conv2.bn.weight - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.3.conv2.bn.bias - torch.Size([16]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer2.3.conv3.conv.weight - torch.Size([64, 16, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.3.conv3.bn.weight - torch.Size([64]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer2.3.conv3.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.0.conv1.conv.weight - torch.Size([32, 64, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.0.conv1.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.0.conv1.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.0.conv2.conv.weight - torch.Size([32, 32, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.0.conv2.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.0.conv2.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.0.conv3.conv.weight - torch.Size([128, 32, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.0.conv3.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.0.conv3.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.0.downsample.conv.weight - torch.Size([128, 64, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.0.downsample.bn.weight - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.0.downsample.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.1.conv1.conv.weight - torch.Size([32, 128, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.1.conv1.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.1.conv1.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.1.conv2.conv.weight - torch.Size([32, 32, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.1.conv2.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.1.conv2.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.1.conv3.conv.weight - torch.Size([128, 32, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.1.conv3.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.1.conv3.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.2.conv1.conv.weight - torch.Size([32, 128, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.2.conv1.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.2.conv1.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.2.conv2.conv.weight - torch.Size([32, 32, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.2.conv2.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.2.conv2.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.2.conv3.conv.weight - torch.Size([128, 32, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.2.conv3.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.2.conv3.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.3.conv1.conv.weight - torch.Size([32, 128, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.3.conv1.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.3.conv1.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.3.conv2.conv.weight - torch.Size([32, 32, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.3.conv2.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.3.conv2.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.3.conv3.conv.weight - torch.Size([128, 32, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.3.conv3.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.3.conv3.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.4.conv1.conv.weight - torch.Size([32, 128, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.4.conv1.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.4.conv1.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.4.conv2.conv.weight - torch.Size([32, 32, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.4.conv2.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.4.conv2.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.4.conv3.conv.weight - torch.Size([128, 32, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.4.conv3.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.4.conv3.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.5.conv1.conv.weight - torch.Size([32, 128, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.5.conv1.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.5.conv1.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.5.conv2.conv.weight - torch.Size([32, 32, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.5.conv2.bn.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.5.conv2.bn.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer3.5.conv3.conv.weight - torch.Size([128, 32, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.5.conv3.bn.weight - torch.Size([128]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer3.5.conv3.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.0.conv1.conv.weight - torch.Size([64, 128, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer4.0.conv1.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.0.conv1.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.0.conv2.conv.weight - torch.Size([64, 64, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer4.0.conv2.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.0.conv2.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.0.conv3.conv.weight - torch.Size([256, 64, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer4.0.conv3.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer4.0.conv3.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.0.downsample.conv.weight - torch.Size([256, 128, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer4.0.downsample.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.0.downsample.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.1.conv1.conv.weight - torch.Size([64, 256, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer4.1.conv1.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.1.conv1.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.1.conv2.conv.weight - torch.Size([64, 64, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer4.1.conv2.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.1.conv2.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.1.conv3.conv.weight - torch.Size([256, 64, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer4.1.conv3.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer4.1.conv3.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.2.conv1.conv.weight - torch.Size([64, 256, 3, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer4.2.conv1.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.2.conv1.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.2.conv2.conv.weight - torch.Size([64, 64, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer4.2.conv2.bn.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.2.conv2.bn.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.fast_path.layer4.2.conv3.conv.weight - torch.Size([256, 64, 1, 1, 1]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer4.2.conv3.bn.weight - torch.Size([256]): 
+Initialized by user-defined `init_weights` in ResNet3dSlowFast  
+
+backbone.fast_path.layer4.2.conv3.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+cls_head.fc_cls.weight - torch.Size([4, 2304]): 
+Initialized by user-defined `init_weights` in SlowFastHead  
+
+cls_head.fc_cls.bias - torch.Size([4]): 
+Initialized by user-defined `init_weights` in SlowFastHead  
+2024/11/26 11:15:05 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/11/26 11:15:05 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/11/26 11:15:05 - mmengine - INFO - Checkpoints will be saved to /home/jupyter-yixuan/mmaction2/work_dirs/slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70.
+2024/11/26 11:16:26 - mmengine - INFO - Epoch(train)  [1][100/567]  lr: 1.0000e-05  eta: 6:22:04  time: 0.7167  data_time: 0.0078  memory: 6190  grad_norm: 9.7109  loss: 1.3835  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3835
+2024/11/26 11:17:39 - mmengine - INFO - Epoch(train)  [1][200/567]  lr: 1.0000e-05  eta: 6:01:00  time: 0.7292  data_time: 0.0087  memory: 6190  grad_norm: 9.7289  loss: 1.4007  top1_acc: 0.0000  top5_acc: 1.0000  loss_cls: 1.4007
+2024/11/26 11:18:52 - mmengine - INFO - Epoch(train)  [1][300/567]  lr: 1.0000e-05  eta: 5:53:40  time: 0.7349  data_time: 0.0096  memory: 6190  grad_norm: 8.9221  loss: 1.4311  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.4311
+2024/11/26 11:20:06 - mmengine - INFO - Epoch(train)  [1][400/567]  lr: 1.0000e-05  eta: 5:49:58  time: 0.7380  data_time: 0.0086  memory: 6190  grad_norm: 10.1677  loss: 1.4210  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.4210
+2024/11/26 11:21:20 - mmengine - INFO - Epoch(train)  [1][500/567]  lr: 1.0000e-05  eta: 5:47:43  time: 0.7387  data_time: 0.0082  memory: 6190  grad_norm: 9.7314  loss: 1.3869  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3869
+2024/11/26 11:22:10 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 11:22:10 - mmengine - INFO - Epoch(train)  [1][567/567]  lr: 1.0000e-05  eta: 5:46:38  time: 0.7405  data_time: 0.0087  memory: 6190  grad_norm: 10.5733  loss: 1.3923  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.3923
+2024/11/26 11:23:29 - mmengine - INFO - Epoch(train)  [2][100/567]  lr: 1.0000e-05  eta: 5:48:34  time: 0.7434  data_time: 0.0084  memory: 6190  grad_norm: 9.9979  loss: 1.3977  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.3977
+2024/11/26 11:24:44 - mmengine - INFO - Epoch(train)  [2][200/567]  lr: 1.0000e-05  eta: 5:46:44  time: 0.7450  data_time: 0.0077  memory: 6190  grad_norm: 9.6588  loss: 1.3922  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3922
+2024/11/26 11:25:59 - mmengine - INFO - Epoch(train)  [2][300/567]  lr: 1.0000e-05  eta: 5:45:14  time: 0.7507  data_time: 0.0104  memory: 6190  grad_norm: 9.4291  loss: 1.3882  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3882
+2024/11/26 11:27:14 - mmengine - INFO - Epoch(train)  [2][400/567]  lr: 1.0000e-05  eta: 5:43:48  time: 0.7518  data_time: 0.0095  memory: 6190  grad_norm: 10.3473  loss: 1.3821  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 1.3821
+2024/11/26 11:27:38 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 11:28:29 - mmengine - INFO - Epoch(train)  [2][500/567]  lr: 1.0000e-05  eta: 5:42:21  time: 0.7510  data_time: 0.0081  memory: 6190  grad_norm: 10.4117  loss: 1.3976  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3976
+2024/11/26 11:29:19 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 11:29:19 - mmengine - INFO - Epoch(train)  [2][567/567]  lr: 1.0000e-05  eta: 5:41:25  time: 0.7454  data_time: 0.0076  memory: 6190  grad_norm: 10.3925  loss: 1.4069  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.4069
+2024/11/26 11:30:13 - mmengine - INFO - Epoch(val) [2][95/95]    acc/top1: 0.5292  acc/top5: 1.0000  acc/mean1: 0.2494  confusion_matrix/result: 
+tensor([[  0,   0,   0, 118],
+        [  0,   0,   0, 118],
+        [  0,   0,   0, 118],
+        [  0,   1,   0, 399]])
+  data_time: 0.3717  time: 0.5648
+2024/11/26 11:30:13 - mmengine - INFO - The best checkpoint with 0.5292 acc/top1 at 2 epoch is saved to best_acc_top1_epoch_2.pth.
+2024/11/26 11:31:32 - mmengine - INFO - Epoch(train)  [3][100/567]  lr: 1.0000e-05  eta: 5:41:30  time: 0.7408  data_time: 0.0089  memory: 6190  grad_norm: 9.7118  loss: 1.3948  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3948
+2024/11/26 11:32:46 - mmengine - INFO - Epoch(train)  [3][200/567]  lr: 1.0000e-05  eta: 5:39:53  time: 0.7478  data_time: 0.0084  memory: 6190  grad_norm: 10.1775  loss: 1.3570  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3570
+2024/11/26 11:34:01 - mmengine - INFO - Epoch(train)  [3][300/567]  lr: 1.0000e-05  eta: 5:38:21  time: 0.7460  data_time: 0.0084  memory: 6190  grad_norm: 9.5573  loss: 1.3897  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3897
+2024/11/26 11:35:16 - mmengine - INFO - Epoch(train)  [3][400/567]  lr: 1.0000e-05  eta: 5:36:56  time: 0.7493  data_time: 0.0082  memory: 6190  grad_norm: 9.6024  loss: 1.4039  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.4039
+2024/11/26 11:36:31 - mmengine - INFO - Epoch(train)  [3][500/567]  lr: 1.0000e-05  eta: 5:35:33  time: 0.7484  data_time: 0.0081  memory: 6190  grad_norm: 9.8368  loss: 1.3911  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3911
+2024/11/26 11:37:21 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 11:37:21 - mmengine - INFO - Epoch(train)  [3][567/567]  lr: 1.0000e-05  eta: 5:34:40  time: 0.7490  data_time: 0.0081  memory: 6190  grad_norm: 10.0060  loss: 1.3859  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3859
+2024/11/26 11:37:21 - mmengine - INFO - Saving checkpoint at 3 epochs
+2024/11/26 11:38:43 - mmengine - INFO - Epoch(train)  [4][100/567]  lr: 1.0000e-05  eta: 5:34:41  time: 0.7525  data_time: 0.0104  memory: 6190  grad_norm: 9.6477  loss: 1.3625  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 1.3625
+2024/11/26 11:39:58 - mmengine - INFO - Epoch(train)  [4][200/567]  lr: 1.0000e-05  eta: 5:33:16  time: 0.7525  data_time: 0.0081  memory: 6190  grad_norm: 9.4372  loss: 1.4019  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.4019
+2024/11/26 11:41:12 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 11:41:13 - mmengine - INFO - Epoch(train)  [4][300/567]  lr: 1.0000e-05  eta: 5:31:54  time: 0.7493  data_time: 0.0085  memory: 6190  grad_norm: 9.8301  loss: 1.3734  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3734
+2024/11/26 11:42:28 - mmengine - INFO - Epoch(train)  [4][400/567]  lr: 1.0000e-05  eta: 5:30:32  time: 0.7544  data_time: 0.0083  memory: 6190  grad_norm: 9.5460  loss: 1.3725  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3725
+2024/11/26 11:43:43 - mmengine - INFO - Epoch(train)  [4][500/567]  lr: 1.0000e-05  eta: 5:29:13  time: 0.7551  data_time: 0.0082  memory: 6190  grad_norm: 9.3435  loss: 1.4025  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.4025
+2024/11/26 11:44:33 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 11:44:33 - mmengine - INFO - Epoch(train)  [4][567/567]  lr: 1.0000e-05  eta: 5:28:20  time: 0.7478  data_time: 0.0083  memory: 6190  grad_norm: 9.1310  loss: 1.3826  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3826
+2024/11/26 11:45:27 - mmengine - INFO - Epoch(val) [4][95/95]    acc/top1: 0.5252  acc/top5: 1.0000  acc/mean1: 0.2475  confusion_matrix/result: 
+tensor([[  0,   1,   0, 117],
+        [  0,   0,   0, 118],
+        [  0,   0,   0, 118],
+        [  0,   4,   0, 396]])
+  data_time: 0.3650  time: 0.5557
+2024/11/26 11:46:46 - mmengine - INFO - Epoch(train)  [5][100/567]  lr: 1.0000e-05  eta: 5:27:46  time: 0.7425  data_time: 0.0088  memory: 6190  grad_norm: 9.1324  loss: 1.3936  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3936
+2024/11/26 11:48:01 - mmengine - INFO - Epoch(train)  [5][200/567]  lr: 1.0000e-05  eta: 5:26:19  time: 0.7466  data_time: 0.0080  memory: 6190  grad_norm: 10.0603  loss: 1.3478  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 1.3478
+2024/11/26 11:49:15 - mmengine - INFO - Epoch(train)  [5][300/567]  lr: 1.0000e-05  eta: 5:24:55  time: 0.7477  data_time: 0.0086  memory: 6190  grad_norm: 9.4778  loss: 1.3665  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3665
+2024/11/26 11:50:31 - mmengine - INFO - Epoch(train)  [5][400/567]  lr: 1.0000e-05  eta: 5:23:37  time: 0.7530  data_time: 0.0087  memory: 6190  grad_norm: 9.3497  loss: 1.4054  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.4054
+2024/11/26 11:51:46 - mmengine - INFO - Epoch(train)  [5][500/567]  lr: 1.0000e-05  eta: 5:22:18  time: 0.7543  data_time: 0.0082  memory: 6190  grad_norm: 9.6775  loss: 1.3946  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.3946
+2024/11/26 11:52:37 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 11:52:37 - mmengine - INFO - Epoch(train)  [5][567/567]  lr: 1.0000e-05  eta: 5:21:26  time: 0.7518  data_time: 0.0090  memory: 6190  grad_norm: 10.4651  loss: 1.4223  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 1.4223
+2024/11/26 11:53:57 - mmengine - INFO - Epoch(train)  [6][100/567]  lr: 1.0000e-05  eta: 5:20:52  time: 0.7509  data_time: 0.0082  memory: 6190  grad_norm: 9.8511  loss: 1.3948  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3948
+2024/11/26 11:54:46 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 11:55:12 - mmengine - INFO - Epoch(train)  [6][200/567]  lr: 1.0000e-05  eta: 5:19:32  time: 0.7554  data_time: 0.0080  memory: 6190  grad_norm: 9.5712  loss: 1.3924  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3924
+2024/11/26 11:56:28 - mmengine - INFO - Epoch(train)  [6][300/567]  lr: 1.0000e-05  eta: 5:18:13  time: 0.7554  data_time: 0.0081  memory: 6190  grad_norm: 10.3653  loss: 1.3820  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3820
+2024/11/26 11:57:43 - mmengine - INFO - Epoch(train)  [6][400/567]  lr: 1.0000e-05  eta: 5:16:55  time: 0.7490  data_time: 0.0079  memory: 6190  grad_norm: 10.1153  loss: 1.4015  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.4015
+2024/11/26 11:58:58 - mmengine - INFO - Epoch(train)  [6][500/567]  lr: 1.0000e-05  eta: 5:15:37  time: 0.7533  data_time: 0.0086  memory: 6190  grad_norm: 10.0404  loss: 1.3854  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.3854
+2024/11/26 11:59:49 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 11:59:49 - mmengine - INFO - Epoch(train)  [6][567/567]  lr: 1.0000e-05  eta: 5:14:44  time: 0.7466  data_time: 0.0077  memory: 6190  grad_norm: 9.4596  loss: 1.3800  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3800
+2024/11/26 11:59:49 - mmengine - INFO - Saving checkpoint at 6 epochs
+2024/11/26 12:00:43 - mmengine - INFO - Epoch(val) [6][95/95]    acc/top1: 0.5159  acc/top5: 1.0000  acc/mean1: 0.2431  confusion_matrix/result: 
+tensor([[  0,   3,   0, 115],
+        [  0,   0,   0, 118],
+        [  0,   2,   0, 116],
+        [  0,  11,   0, 389]])
+  data_time: 0.3638  time: 0.5598
+2024/11/26 12:02:03 - mmengine - INFO - Epoch(train)  [7][100/567]  lr: 1.0000e-05  eta: 5:13:56  time: 0.7467  data_time: 0.0084  memory: 6190  grad_norm: 9.4533  loss: 1.3925  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3925
+2024/11/26 12:03:18 - mmengine - INFO - Epoch(train)  [7][200/567]  lr: 1.0000e-05  eta: 5:12:34  time: 0.7492  data_time: 0.0080  memory: 6190  grad_norm: 9.3123  loss: 1.4212  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.4212
+2024/11/26 12:04:33 - mmengine - INFO - Epoch(train)  [7][300/567]  lr: 1.0000e-05  eta: 5:11:13  time: 0.7549  data_time: 0.0110  memory: 6190  grad_norm: 9.5874  loss: 1.3623  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3623
+2024/11/26 12:05:48 - mmengine - INFO - Epoch(train)  [7][400/567]  lr: 1.0000e-05  eta: 5:09:54  time: 0.7543  data_time: 0.0082  memory: 6190  grad_norm: 9.0663  loss: 1.3594  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3594
+2024/11/26 12:07:03 - mmengine - INFO - Epoch(train)  [7][500/567]  lr: 1.0000e-05  eta: 5:08:34  time: 0.7536  data_time: 0.0087  memory: 6190  grad_norm: 9.8962  loss: 1.3917  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 1.3917
+2024/11/26 12:07:54 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 12:07:54 - mmengine - INFO - Epoch(train)  [7][567/567]  lr: 1.0000e-05  eta: 5:07:43  time: 0.7520  data_time: 0.0070  memory: 6190  grad_norm: 9.3955  loss: 1.3759  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3759
+2024/11/26 12:08:23 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 12:09:14 - mmengine - INFO - Epoch(train)  [8][100/567]  lr: 1.0000e-05  eta: 5:06:57  time: 0.7518  data_time: 0.0087  memory: 6190  grad_norm: 9.1339  loss: 1.4015  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.4015
+2024/11/26 12:10:30 - mmengine - INFO - Epoch(train)  [8][200/567]  lr: 1.0000e-05  eta: 5:05:39  time: 0.7534  data_time: 0.0099  memory: 6190  grad_norm: 9.9395  loss: 1.3966  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3966
+2024/11/26 12:11:45 - mmengine - INFO - Epoch(train)  [8][300/567]  lr: 1.0000e-05  eta: 5:04:20  time: 0.7497  data_time: 0.0078  memory: 6190  grad_norm: 9.2924  loss: 1.4018  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.4018
+2024/11/26 12:13:01 - mmengine - INFO - Epoch(train)  [8][400/567]  lr: 1.0000e-05  eta: 5:03:02  time: 0.7564  data_time: 0.0084  memory: 6190  grad_norm: 9.6321  loss: 1.3879  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3879
+2024/11/26 12:14:16 - mmengine - INFO - Epoch(train)  [8][500/567]  lr: 1.0000e-05  eta: 5:01:44  time: 0.7547  data_time: 0.0083  memory: 6190  grad_norm: 9.8071  loss: 1.3887  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.3887
+2024/11/26 12:15:07 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 12:15:07 - mmengine - INFO - Epoch(train)  [8][567/567]  lr: 1.0000e-05  eta: 5:00:52  time: 0.7497  data_time: 0.0071  memory: 6190  grad_norm: 9.9708  loss: 1.4062  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.4062
+2024/11/26 12:16:00 - mmengine - INFO - Epoch(val) [8][95/95]    acc/top1: 0.5318  acc/top5: 1.0000  acc/mean1: 0.2536  confusion_matrix/result: 
+tensor([[  2,   0,   0, 116],
+        [  1,   0,   0, 117],
+        [  1,   0,   0, 117],
+        [  1,   0,   0, 399]])
+  data_time: 0.3601  time: 0.5565
+2024/11/26 12:16:00 - mmengine - INFO - The previous best checkpoint /home/jupyter-yixuan/mmaction2/work_dirs/slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70/best_acc_top1_epoch_2.pth is removed
+2024/11/26 12:16:00 - mmengine - INFO - The best checkpoint with 0.5318 acc/top1 at 8 epoch is saved to best_acc_top1_epoch_8.pth.
+2024/11/26 12:17:20 - mmengine - INFO - Epoch(train)  [9][100/567]  lr: 1.0000e-05  eta: 4:59:54  time: 0.7458  data_time: 0.0087  memory: 6190  grad_norm: 10.0233  loss: 1.4152  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.4152
+2024/11/26 12:18:35 - mmengine - INFO - Epoch(train)  [9][200/567]  lr: 1.0000e-05  eta: 4:58:33  time: 0.7543  data_time: 0.0107  memory: 6190  grad_norm: 9.9255  loss: 1.4291  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.4291
+2024/11/26 12:19:50 - mmengine - INFO - Epoch(train)  [9][300/567]  lr: 1.0000e-05  eta: 4:57:13  time: 0.7530  data_time: 0.0079  memory: 6190  grad_norm: 9.8677  loss: 1.3798  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.3798
+2024/11/26 12:21:06 - mmengine - INFO - Epoch(train)  [9][400/567]  lr: 1.0000e-05  eta: 4:55:56  time: 0.7587  data_time: 0.0109  memory: 6190  grad_norm: 9.7358  loss: 1.3716  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3716
+2024/11/26 12:21:54 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 12:22:21 - mmengine - INFO - Epoch(train)  [9][500/567]  lr: 1.0000e-05  eta: 4:54:38  time: 0.7500  data_time: 0.0087  memory: 6190  grad_norm: 9.7575  loss: 1.3799  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3799
+2024/11/26 12:23:12 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 12:23:12 - mmengine - INFO - Epoch(train)  [9][567/567]  lr: 1.0000e-05  eta: 4:53:46  time: 0.7529  data_time: 0.0071  memory: 6190  grad_norm: 9.8732  loss: 1.4066  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.4066
+2024/11/26 12:23:12 - mmengine - INFO - Saving checkpoint at 9 epochs
+2024/11/26 12:24:33 - mmengine - INFO - Epoch(train) [10][100/567]  lr: 1.0000e-05  eta: 4:52:51  time: 0.7574  data_time: 0.0083  memory: 6190  grad_norm: 9.3879  loss: 1.3917  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3917
+2024/11/26 12:25:49 - mmengine - INFO - Epoch(train) [10][200/567]  lr: 1.0000e-05  eta: 4:51:34  time: 0.7585  data_time: 0.0122  memory: 6190  grad_norm: 9.5238  loss: 1.3813  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3813
+2024/11/26 12:27:04 - mmengine - INFO - Epoch(train) [10][300/567]  lr: 1.0000e-05  eta: 4:50:16  time: 0.7526  data_time: 0.0100  memory: 6190  grad_norm: 9.7149  loss: 1.3919  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3919
+2024/11/26 12:28:20 - mmengine - INFO - Epoch(train) [10][400/567]  lr: 1.0000e-05  eta: 4:49:00  time: 0.7579  data_time: 0.0107  memory: 6190  grad_norm: 9.1453  loss: 1.4070  top1_acc: 0.0000  top5_acc: 1.0000  loss_cls: 1.4070
+2024/11/26 12:29:35 - mmengine - INFO - Epoch(train) [10][500/567]  lr: 1.0000e-05  eta: 4:47:42  time: 0.7583  data_time: 0.0085  memory: 6190  grad_norm: 10.3028  loss: 1.3818  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3818
+2024/11/26 12:30:26 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 12:30:26 - mmengine - INFO - Epoch(train) [10][567/567]  lr: 1.0000e-05  eta: 4:46:50  time: 0.7566  data_time: 0.0090  memory: 6190  grad_norm: 9.8073  loss: 1.3978  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.3978
+2024/11/26 12:31:19 - mmengine - INFO - Epoch(val) [10][95/95]    acc/top1: 0.5305  acc/top5: 1.0000  acc/mean1: 0.2500  confusion_matrix/result: 
+tensor([[  0,   0,   0, 118],
+        [  0,   0,   0, 118],
+        [  0,   0,   0, 118],
+        [  0,   0,   0, 400]])
+  data_time: 0.3617  time: 0.5578
+2024/11/26 12:32:39 - mmengine - INFO - Epoch(train) [11][100/567]  lr: 1.0000e-05  eta: 4:45:49  time: 0.7464  data_time: 0.0105  memory: 6190  grad_norm: 10.3183  loss: 1.4024  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.4024
+2024/11/26 12:33:54 - mmengine - INFO - Epoch(train) [11][200/567]  lr: 1.0000e-05  eta: 4:44:29  time: 0.7477  data_time: 0.0077  memory: 6190  grad_norm: 9.8862  loss: 1.3922  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3922
+2024/11/26 12:35:09 - mmengine - INFO - Epoch(train) [11][300/567]  lr: 1.0000e-05  eta: 4:43:11  time: 0.7545  data_time: 0.0085  memory: 6190  grad_norm: 9.5319  loss: 1.4296  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.4296
+2024/11/26 12:35:32 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 12:36:25 - mmengine - INFO - Epoch(train) [11][400/567]  lr: 1.0000e-05  eta: 4:41:54  time: 0.7548  data_time: 0.0080  memory: 6190  grad_norm: 9.6148  loss: 1.3923  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3923
+2024/11/26 12:37:40 - mmengine - INFO - Epoch(train) [11][500/567]  lr: 1.0000e-05  eta: 4:40:35  time: 0.7538  data_time: 0.0083  memory: 6190  grad_norm: 10.5263  loss: 1.4016  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.4016
+2024/11/26 12:38:31 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 12:38:31 - mmengine - INFO - Epoch(train) [11][567/567]  lr: 1.0000e-05  eta: 4:39:44  time: 0.7530  data_time: 0.0071  memory: 6190  grad_norm: 9.6698  loss: 1.3820  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3820
+2024/11/26 12:39:52 - mmengine - INFO - Epoch(train) [12][100/567]  lr: 1.0000e-05  eta: 4:38:46  time: 0.7509  data_time: 0.0081  memory: 6190  grad_norm: 9.4157  loss: 1.4150  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.4150
+2024/11/26 12:41:07 - mmengine - INFO - Epoch(train) [12][200/567]  lr: 1.0000e-05  eta: 4:37:28  time: 0.7561  data_time: 0.0090  memory: 6190  grad_norm: 10.3199  loss: 1.3891  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.3891
+2024/11/26 12:42:23 - mmengine - INFO - Epoch(train) [12][300/567]  lr: 1.0000e-05  eta: 4:36:11  time: 0.7569  data_time: 0.0084  memory: 6190  grad_norm: 9.6684  loss: 1.3947  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3947
+2024/11/26 12:43:39 - mmengine - INFO - Epoch(train) [12][400/567]  lr: 1.0000e-05  eta: 4:34:54  time: 0.7580  data_time: 0.0103  memory: 6190  grad_norm: 9.6316  loss: 1.4044  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.4044
+2024/11/26 12:44:54 - mmengine - INFO - Epoch(train) [12][500/567]  lr: 1.0000e-05  eta: 4:33:37  time: 0.7557  data_time: 0.0085  memory: 6190  grad_norm: 9.6113  loss: 1.3843  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.3843
+2024/11/26 12:45:45 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 12:45:45 - mmengine - INFO - Epoch(train) [12][567/567]  lr: 1.0000e-05  eta: 4:32:45  time: 0.7545  data_time: 0.0073  memory: 6190  grad_norm: 9.9473  loss: 1.3696  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.3696
+2024/11/26 12:45:45 - mmengine - INFO - Saving checkpoint at 12 epochs
+2024/11/26 12:46:39 - mmengine - INFO - Epoch(val) [12][95/95]    acc/top1: 0.5305  acc/top5: 1.0000  acc/mean1: 0.2605  confusion_matrix/result: 
+tensor([[  7,   0,   0, 111],
+        [  4,   0,   0, 114],
+        [  1,   0,   0, 117],
+        [  7,   0,   0, 393]])
+  data_time: 0.3601  time: 0.5557
+2024/11/26 12:47:58 - mmengine - INFO - Epoch(train) [13][100/567]  lr: 1.0000e-05  eta: 4:31:40  time: 0.7475  data_time: 0.0081  memory: 6190  grad_norm: 9.6921  loss: 1.3779  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3779
+2024/11/26 12:49:10 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 12:49:13 - mmengine - INFO - Epoch(train) [13][200/567]  lr: 1.0000e-05  eta: 4:30:21  time: 0.7506  data_time: 0.0092  memory: 6190  grad_norm: 9.6584  loss: 1.3913  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 1.3913
+2024/11/26 12:50:29 - mmengine - INFO - Epoch(train) [13][300/567]  lr: 1.0000e-05  eta: 4:29:03  time: 0.7547  data_time: 0.0080  memory: 6190  grad_norm: 9.2615  loss: 1.3911  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3911
+2024/11/26 12:51:44 - mmengine - INFO - Epoch(train) [13][400/567]  lr: 1.0000e-05  eta: 4:27:45  time: 0.7520  data_time: 0.0085  memory: 6190  grad_norm: 9.2537  loss: 1.3655  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3655
+2024/11/26 12:52:59 - mmengine - INFO - Epoch(train) [13][500/567]  lr: 1.0000e-05  eta: 4:26:27  time: 0.7582  data_time: 0.0085  memory: 6190  grad_norm: 9.7040  loss: 1.3899  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3899
+2024/11/26 12:53:50 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 12:53:50 - mmengine - INFO - Epoch(train) [13][567/567]  lr: 1.0000e-05  eta: 4:25:35  time: 0.7588  data_time: 0.0071  memory: 6190  grad_norm: 9.5897  loss: 1.4060  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.4060
+2024/11/26 12:55:11 - mmengine - INFO - Epoch(train) [14][100/567]  lr: 1.0000e-05  eta: 4:24:33  time: 0.7578  data_time: 0.0081  memory: 6190  grad_norm: 9.6766  loss: 1.4018  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.4018
+2024/11/26 12:56:26 - mmengine - INFO - Epoch(train) [14][200/567]  lr: 1.0000e-05  eta: 4:23:16  time: 0.7549  data_time: 0.0082  memory: 6190  grad_norm: 9.9461  loss: 1.4050  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.4050
+2024/11/26 12:57:42 - mmengine - INFO - Epoch(train) [14][300/567]  lr: 1.0000e-05  eta: 4:21:59  time: 0.7562  data_time: 0.0107  memory: 6190  grad_norm: 9.8882  loss: 1.3891  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3891
+2024/11/26 12:58:57 - mmengine - INFO - Epoch(train) [14][400/567]  lr: 1.0000e-05  eta: 4:20:41  time: 0.7556  data_time: 0.0102  memory: 6190  grad_norm: 10.1022  loss: 1.4197  top1_acc: 0.0000  top5_acc: 1.0000  loss_cls: 1.4197
+2024/11/26 13:00:13 - mmengine - INFO - Epoch(train) [14][500/567]  lr: 1.0000e-05  eta: 4:19:25  time: 0.7580  data_time: 0.0085  memory: 6190  grad_norm: 10.2389  loss: 1.3662  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3662
+2024/11/26 13:01:04 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 13:01:04 - mmengine - INFO - Epoch(train) [14][567/567]  lr: 1.0000e-05  eta: 4:18:33  time: 0.7454  data_time: 0.0070  memory: 6190  grad_norm: 9.7591  loss: 1.4121  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.4121
+2024/11/26 13:01:57 - mmengine - INFO - Epoch(val) [14][95/95]    acc/top1: 0.5305  acc/top5: 1.0000  acc/mean1: 0.2500  confusion_matrix/result: 
+tensor([[  0,   0,   0, 118],
+        [  0,   0,   0, 118],
+        [  0,   0,   0, 118],
+        [  0,   0,   0, 400]])
+  data_time: 0.3639  time: 0.5563
+2024/11/26 13:02:48 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 13:03:17 - mmengine - INFO - Epoch(train) [15][100/567]  lr: 1.0000e-05  eta: 4:17:26  time: 0.7491  data_time: 0.0077  memory: 6190  grad_norm: 9.7550  loss: 1.4108  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.4108
+2024/11/26 13:04:32 - mmengine - INFO - Epoch(train) [15][200/567]  lr: 1.0000e-05  eta: 4:16:07  time: 0.7519  data_time: 0.0086  memory: 6190  grad_norm: 9.9066  loss: 1.4013  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.4013
+2024/11/26 13:05:47 - mmengine - INFO - Epoch(train) [15][300/567]  lr: 1.0000e-05  eta: 4:14:49  time: 0.7501  data_time: 0.0084  memory: 6190  grad_norm: 10.0048  loss: 1.4057  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.4057
+2024/11/26 13:07:02 - mmengine - INFO - Epoch(train) [15][400/567]  lr: 1.0000e-05  eta: 4:13:32  time: 0.7595  data_time: 0.0083  memory: 6190  grad_norm: 10.0311  loss: 1.4266  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.4266
+2024/11/26 13:08:18 - mmengine - INFO - Epoch(train) [15][500/567]  lr: 1.0000e-05  eta: 4:12:15  time: 0.7551  data_time: 0.0082  memory: 6190  grad_norm: 9.5699  loss: 1.3647  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3647
+2024/11/26 13:09:08 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 13:09:08 - mmengine - INFO - Epoch(train) [15][567/567]  lr: 1.0000e-05  eta: 4:11:23  time: 0.7470  data_time: 0.0082  memory: 6190  grad_norm: 10.2572  loss: 1.3747  top1_acc: 0.0000  top5_acc: 1.0000  loss_cls: 1.3747
+2024/11/26 13:09:08 - mmengine - INFO - Saving checkpoint at 15 epochs
+2024/11/26 13:10:30 - mmengine - INFO - Epoch(train) [16][100/567]  lr: 1.0000e-05  eta: 4:10:17  time: 0.7534  data_time: 0.0085  memory: 6190  grad_norm: 9.9247  loss: 1.4145  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.4145
+2024/11/26 13:11:45 - mmengine - INFO - Epoch(train) [16][200/567]  lr: 1.0000e-05  eta: 4:09:00  time: 0.7567  data_time: 0.0087  memory: 6190  grad_norm: 10.4040  loss: 1.3772  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3772
+2024/11/26 13:13:01 - mmengine - INFO - Epoch(train) [16][300/567]  lr: 1.0000e-05  eta: 4:07:43  time: 0.7595  data_time: 0.0084  memory: 6190  grad_norm: 9.3910  loss: 1.3616  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 1.3616
+2024/11/26 13:14:17 - mmengine - INFO - Epoch(train) [16][400/567]  lr: 1.0000e-05  eta: 4:06:26  time: 0.7564  data_time: 0.0085  memory: 6190  grad_norm: 9.9062  loss: 1.3984  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3984
+2024/11/26 13:15:29 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 13:15:32 - mmengine - INFO - Epoch(train) [16][500/567]  lr: 1.0000e-05  eta: 4:05:09  time: 0.7590  data_time: 0.0087  memory: 6190  grad_norm: 10.0812  loss: 1.4010  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.4010
+2024/11/26 13:16:23 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 13:16:23 - mmengine - INFO - Epoch(train) [16][567/567]  lr: 1.0000e-05  eta: 4:04:18  time: 0.7532  data_time: 0.0072  memory: 6190  grad_norm: 9.4518  loss: 1.3964  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.3964
+2024/11/26 13:17:17 - mmengine - INFO - Epoch(val) [16][95/95]    acc/top1: 0.5318  acc/top5: 1.0000  acc/mean1: 0.2566  confusion_matrix/result: 
+tensor([[  4,   0,   0, 114],
+        [  2,   0,   0, 116],
+        [  1,   0,   0, 117],
+        [  3,   0,   0, 397]])
+  data_time: 0.3631  time: 0.5577
+2024/11/26 13:18:37 - mmengine - INFO - Epoch(train) [17][100/567]  lr: 1.0000e-05  eta: 4:03:11  time: 0.7474  data_time: 0.0079  memory: 6190  grad_norm: 9.6838  loss: 1.3746  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3746
+2024/11/26 13:19:52 - mmengine - INFO - Epoch(train) [17][200/567]  lr: 1.0000e-05  eta: 4:01:52  time: 0.7492  data_time: 0.0081  memory: 6190  grad_norm: 9.8061  loss: 1.3944  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.3944
+2024/11/26 13:21:07 - mmengine - INFO - Epoch(train) [17][300/567]  lr: 1.0000e-05  eta: 4:00:34  time: 0.7538  data_time: 0.0084  memory: 6190  grad_norm: 9.8920  loss: 1.4032  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.4032
+2024/11/26 13:22:22 - mmengine - INFO - Epoch(train) [17][400/567]  lr: 1.0000e-05  eta: 3:59:17  time: 0.7519  data_time: 0.0082  memory: 6190  grad_norm: 10.1657  loss: 1.3805  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3805
+2024/11/26 13:23:38 - mmengine - INFO - Epoch(train) [17][500/567]  lr: 1.0000e-05  eta: 3:58:00  time: 0.7580  data_time: 0.0110  memory: 6190  grad_norm: 9.5916  loss: 1.4124  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.4124
+2024/11/26 13:24:28 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 13:24:28 - mmengine - INFO - Epoch(train) [17][567/567]  lr: 1.0000e-05  eta: 3:57:08  time: 0.7460  data_time: 0.0073  memory: 6190  grad_norm: 9.9969  loss: 1.3995  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3995
+2024/11/26 13:25:49 - mmengine - INFO - Epoch(train) [18][100/567]  lr: 1.0000e-05  eta: 3:56:00  time: 0.7524  data_time: 0.0080  memory: 6190  grad_norm: 10.0600  loss: 1.4118  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.4118
+2024/11/26 13:27:04 - mmengine - INFO - Epoch(train) [18][200/567]  lr: 1.0000e-05  eta: 3:54:43  time: 0.7568  data_time: 0.0087  memory: 6190  grad_norm: 10.0600  loss: 1.3952  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.3952
+2024/11/26 13:28:20 - mmengine - INFO - Epoch(train) [18][300/567]  lr: 1.0000e-05  eta: 3:53:26  time: 0.7592  data_time: 0.0080  memory: 6190  grad_norm: 9.6779  loss: 1.4071  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 1.4071
+2024/11/26 13:29:06 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 13:29:36 - mmengine - INFO - Epoch(train) [18][400/567]  lr: 1.0000e-05  eta: 3:52:10  time: 0.7586  data_time: 0.0102  memory: 6190  grad_norm: 8.9961  loss: 1.3713  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3713
+2024/11/26 13:30:51 - mmengine - INFO - Epoch(train) [18][500/567]  lr: 1.0000e-05  eta: 3:50:53  time: 0.7590  data_time: 0.0085  memory: 6190  grad_norm: 9.4287  loss: 1.3946  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.3946
+2024/11/26 13:31:42 - mmengine - INFO - Exp name: slowfast_r50_8xb8-4x16x1-256e_kinetics400-rgb_transfer_epoch70_20241126_111502
+2024/11/26 13:31:42 - mmengine - INFO - Epoch(train) [18][567/567]  lr: 1.0000e-05  eta: 3:50:02  time: 0.7547  data_time: 0.0093  memory: 6190  grad_norm: 9.9212  loss: 1.4007  top1_acc: 0.1250  top5_acc: 1.0000  loss_cls: 1.4007
+2024/11/26 13:31:42 - mmengine - INFO - Saving checkpoint at 18 epochs
+2024/11/26 13:32:36 - mmengine - INFO - Epoch(val) [18][95/95]    acc/top1: 0.5305  acc/top5: 1.0000  acc/mean1: 0.2500  confusion_matrix/result: 
+tensor([[  0,   0,   0, 118],
+        [  0,   0,   0, 118],
+        [  0,   0,   0, 118],
+        [  0,   0,   0, 400]])
+  data_time: 0.3584  time: 0.5548
+2024/11/26 13:33:56 - mmengine - INFO - Epoch(train) [19][100/567]  lr: 1.0000e-05  eta: 3:48:51  time: 0.7483  data_time: 0.0092  memory: 6190  grad_norm: 9.3758  loss: 1.4029  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 1.4029
+2024/11/26 13:35:11 - mmengine - INFO - Epoch(train) [19][200/567]  lr: 1.0000e-05  eta: 3:47:33  time: 0.7488  data_time: 0.0081  memory: 6190  grad_norm: 10.0756  loss: 1.4024  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.4024
+2024/11/26 13:36:26 - mmengine - INFO - Epoch(train) [19][300/567]  lr: 1.0000e-05  eta: 3:46:16  time: 0.7537  data_time: 0.0080  memory: 6190  grad_norm: 9.6551  loss: 1.3985  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 1.3985

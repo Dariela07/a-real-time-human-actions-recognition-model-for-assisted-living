@@ -1,0 +1,1419 @@
+2024/12/04 08:47:00 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.20 (default, Oct  3 2024, 15:24:27) [GCC 11.2.0]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 848920631
+    GPU 0: Tesla V100-PCIE-16GB
+    CUDA_HOME: /usr/local/cuda
+    NVCC: Cuda compilation tools, release 11.1, V11.1.74
+    GCC: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+    PyTorch: 2.1.2
+    PyTorch compiling details: PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201703
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.1.1 (Git Hash 64f6bcbcbab628e96f33a62c3e975f8535a7bde4)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.8
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_90,code=sm_90;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.7
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.8, CUDNN_VERSION=8.7.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=old-style-cast -Wno-invalid-partial-specialization -Wno-unused-private-field -Wno-aligned-allocation-unavailable -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Werror=cast-function-type -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_DISABLE_GPU_ASSERTS=ON, TORCH_VERSION=2.1.2, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.16.2
+    OpenCV: 4.10.0
+    MMEngine: 0.10.5
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 848920631
+    diff_rank_seed: False
+    deterministic: False
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+2024/12/04 08:47:00 - mmengine - INFO - Config:
+ann_file_test = 'data/normal_vs_3critical/normal_vs_3critical_test.txt'
+ann_file_train = 'data/normal_vs_3critical/normal_vs_3critical_train.txt'
+ann_file_val = 'data/normal_vs_3critical/normal_vs_3critical_val.txt'
+auto_scale_lr = dict(base_batch_size=256, enable=True)
+base_lr = 3.3325e-06
+data_root = 'data/normal_vs_3critical/train'
+data_root_test = 'data/normal_vs_3critical/test'
+data_root_val = 'data/normal_vs_3critical/val'
+dataset_type = 'VideoDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=1,
+        max_keep_ckpts=20,
+        save_best='auto',
+        save_last=True,
+        save_optimizer=True,
+        type='CheckpointHook'),
+    logger=dict(ignore_last=False, interval=100, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    runtime_info=dict(type='RuntimeInfoHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    sync_buffers=dict(type='SyncBuffersHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(draw_confusion_matrix=True, type='VisualizationHook'))
+default_scope = 'mmaction'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+file_client_args = dict(io_backend='disk')
+launcher = 'none'
+load_from = 'work_dirs/uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer/epoch_38.pth'
+log_level = 'INFO'
+log_processor = dict(by_epoch=True, type='LogProcessor', window_size=20)
+model = dict(
+    backbone=dict(
+        backbone_drop_path_rate=0.0,
+        clip_pretrained=True,
+        double_lmhra=True,
+        drop_path_rate=0.0,
+        dw_reduction=1.5,
+        heads=12,
+        input_resolution=224,
+        layers=12,
+        mlp_dropout=[
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+        ],
+        mlp_factor=4.0,
+        n_dim=768,
+        n_head=12,
+        n_layers=4,
+        no_lmhra=True,
+        patch_size=16,
+        pretrained='ViT-B/16',
+        return_list=[
+            8,
+            9,
+            10,
+            11,
+        ],
+        t_size=8,
+        temporal_downsample=False,
+        type='UniFormerV2',
+        width=768),
+    cls_head=dict(
+        average_clips='prob',
+        dropout_ratio=0.5,
+        in_channels=768,
+        loss_cls=dict(
+            class_weight=[
+                1.0,
+                1.0,
+                1.0,
+                0.3,
+            ],
+            loss_weight=1.0,
+            type='CrossEntropyLoss'),
+        num_classes=4,
+        type='UniFormerHead'),
+    data_preprocessor=dict(
+        format_shape='NCTHW',
+        mean=[
+            114.75,
+            114.75,
+            114.75,
+        ],
+        std=[
+            57.375,
+            57.375,
+            57.375,
+        ],
+        type='ActionDataPreprocessor'),
+    type='Recognizer3D')
+num_frames = 8
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=20, norm_type=2),
+    optimizer=dict(
+        betas=(
+            0.9,
+            0.999,
+        ), lr=3.3325e-06, type='AdamW', weight_decay=0.05),
+    paramwise_cfg=dict(bias_decay_mult=0.0, norm_decay_mult=0.0))
+param_scheduler = [
+    dict(
+        begin=0,
+        by_epoch=True,
+        convert_to_iter_based=True,
+        end=5,
+        start_factor=0.1,
+        type='LinearLR'),
+    dict(
+        T_max=12,
+        begin=5,
+        by_epoch=True,
+        convert_to_iter_based=True,
+        end=12,
+        eta_min_ratio=0.1,
+        type='CosineAnnealingLR'),
+]
+randomness = dict(deterministic=False, diff_rank_seed=False, seed=None)
+resume = False
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='data/normal_vs_3critical/normal_vs_3critical_test.txt',
+        data_prefix=dict(video='data/normal_vs_3critical/test'),
+        pipeline=[
+            dict(io_backend='disk', type='DecordInit'),
+            dict(
+                clip_len=8, num_clips=4, test_mode=True, type='UniformSample'),
+            dict(type='DecordDecode'),
+            dict(scale=(
+                -1,
+                224,
+            ), type='Resize'),
+            dict(crop_size=224, type='ThreeCrop'),
+            dict(input_format='NCTHW', type='FormatShape'),
+            dict(type='PackActionInputs'),
+        ],
+        test_mode=True,
+        type='VideoDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(metrics=[
+    dict(type='AccMetric'),
+    dict(num_classes=4, type='ConfusionMatrix'),
+])
+test_pipeline = [
+    dict(io_backend='disk', type='DecordInit'),
+    dict(clip_len=8, num_clips=4, test_mode=True, type='UniformSample'),
+    dict(type='DecordDecode'),
+    dict(scale=(
+        -1,
+        224,
+    ), type='Resize'),
+    dict(crop_size=224, type='ThreeCrop'),
+    dict(input_format='NCTHW', type='FormatShape'),
+    dict(type='PackActionInputs'),
+]
+train_cfg = dict(
+    max_epochs=12, type='EpochBasedTrainLoop', val_begin=1, val_interval=1)
+train_dataloader = dict(
+    batch_size=8,
+    dataset=dict(
+        ann_file='data/normal_vs_3critical/normal_vs_3critical_train.txt',
+        data_prefix=dict(video='data/normal_vs_3critical/train'),
+        pipeline=[
+            dict(io_backend='disk', type='DecordInit'),
+            dict(clip_len=8, num_clips=1, type='UniformSample'),
+            dict(type='DecordDecode'),
+            dict(scale=(
+                -1,
+                256,
+            ), type='Resize'),
+            dict(
+                magnitude=7,
+                num_layers=4,
+                op='RandAugment',
+                type='PytorchVideoWrapper'),
+            dict(type='RandomResizedCrop'),
+            dict(keep_ratio=False, scale=(
+                224,
+                224,
+            ), type='Resize'),
+            dict(flip_ratio=0.5, type='Flip'),
+            dict(input_format='NCTHW', type='FormatShape'),
+            dict(type='PackActionInputs'),
+        ],
+        type='VideoDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(io_backend='disk', type='DecordInit'),
+    dict(clip_len=8, num_clips=1, type='UniformSample'),
+    dict(type='DecordDecode'),
+    dict(scale=(
+        -1,
+        256,
+    ), type='Resize'),
+    dict(
+        magnitude=7,
+        num_layers=4,
+        op='RandAugment',
+        type='PytorchVideoWrapper'),
+    dict(type='RandomResizedCrop'),
+    dict(keep_ratio=False, scale=(
+        224,
+        224,
+    ), type='Resize'),
+    dict(flip_ratio=0.5, type='Flip'),
+    dict(input_format='NCTHW', type='FormatShape'),
+    dict(type='PackActionInputs'),
+]
+val_cfg = dict(type='ValLoop')
+val_dataloader = dict(
+    batch_size=8,
+    dataset=dict(
+        ann_file='data/normal_vs_3critical/normal_vs_3critical_val.txt',
+        data_prefix=dict(video='data/normal_vs_3critical/val'),
+        pipeline=[
+            dict(io_backend='disk', type='DecordInit'),
+            dict(
+                clip_len=8, num_clips=1, test_mode=True, type='UniformSample'),
+            dict(type='DecordDecode'),
+            dict(scale=(
+                -1,
+                224,
+            ), type='Resize'),
+            dict(crop_size=224, type='CenterCrop'),
+            dict(input_format='NCTHW', type='FormatShape'),
+            dict(type='PackActionInputs'),
+        ],
+        test_mode=True,
+        type='VideoDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(metrics=[
+    dict(type='AccMetric'),
+    dict(num_classes=4, type='ConfusionMatrix'),
+])
+val_pipeline = [
+    dict(io_backend='disk', type='DecordInit'),
+    dict(clip_len=8, num_clips=1, test_mode=True, type='UniformSample'),
+    dict(type='DecordDecode'),
+    dict(scale=(
+        -1,
+        224,
+    ), type='Resize'),
+    dict(crop_size=224, type='CenterCrop'),
+    dict(input_format='NCTHW', type='FormatShape'),
+    dict(type='PackActionInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    type='ActionVisualizer', vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs/uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer'
+
+2024/12/04 08:47:01 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:01 - mmengine - INFO - No L_MHRA: True
+2024/12/04 08:47:01 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 08:47:01 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:01 - mmengine - INFO - No L_MHRA: True
+2024/12/04 08:47:01 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 08:47:01 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:01 - mmengine - INFO - No L_MHRA: True
+2024/12/04 08:47:01 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 08:47:01 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:01 - mmengine - INFO - No L_MHRA: True
+2024/12/04 08:47:01 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 08:47:01 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:01 - mmengine - INFO - No L_MHRA: True
+2024/12/04 08:47:01 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 08:47:01 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:01 - mmengine - INFO - No L_MHRA: True
+2024/12/04 08:47:01 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 08:47:01 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:01 - mmengine - INFO - No L_MHRA: True
+2024/12/04 08:47:01 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 08:47:02 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:02 - mmengine - INFO - No L_MHRA: True
+2024/12/04 08:47:02 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 08:47:02 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:02 - mmengine - INFO - No L_MHRA: True
+2024/12/04 08:47:02 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 08:47:02 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:02 - mmengine - INFO - No L_MHRA: True
+2024/12/04 08:47:02 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 08:47:02 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:02 - mmengine - INFO - No L_MHRA: True
+2024/12/04 08:47:02 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 08:47:02 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:02 - mmengine - INFO - No L_MHRA: True
+2024/12/04 08:47:02 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 08:47:02 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:02 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:02 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:02 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 08:47:03 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+2024/12/04 08:47:03 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) VisualizationHook                  
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) VisualizationHook                  
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.ln_pre.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.ln_pre.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.0.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.0.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.0.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.0.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.0.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.0.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.0.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.1.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.1.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.1.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.1.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.1.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.1.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.1.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.2.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.2.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.2.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.2.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.2.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.2.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.2.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.3.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.3.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.3.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.3.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.3.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.3.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.3.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.4.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.4.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.4.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.4.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.4.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.4.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.4.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.5.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.5.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.5.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.5.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.5.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.5.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.5.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.6.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.6.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.6.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.6.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.6.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.6.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.6.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.7.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.7.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.7.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.7.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.7.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.7.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.7.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.8.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.8.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.8.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.8.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.8.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.8.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.8.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.9.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.9.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.9.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.9.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.9.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.9.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.9.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.10.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.10.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.10.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.10.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.10.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.10.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.10.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.11.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.11.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.11.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.11.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.11.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.11.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.resblocks.11.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dpe.0.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dpe.1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dpe.2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dpe.3.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.0.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.0.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.0.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.0.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.0.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.0.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.0.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.0.ln_3.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.0.ln_3.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.1.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.1.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.1.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.1.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.1.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.1.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.1.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.1.ln_3.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.1.ln_3.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.2.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.2.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.2.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.2.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.2.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.2.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.2.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.2.ln_3.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.2.ln_3.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.3.attn.out_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.3.ln_1.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.3.ln_1.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.3.mlp.c_fc.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.3.mlp.c_proj.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.3.ln_2.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.3.ln_2.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.3.ln_3.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.dec.3.ln_3.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.norm.weight:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- backbone.transformer.norm.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - paramwise_options -- cls_head.fc_cls.bias:weight_decay=0.0
+2024/12/04 08:47:03 - mmengine - INFO - LR is set based on batch size of 256 and the current batch size is 8. Scaling the original LR by 0.03125.
+2024/12/04 08:47:03 - mmengine - INFO - load model from: ViT-B/16
+2024/12/04 08:47:03 - mmengine - INFO - Load CLIP pretrained model from https://download.openmmlab.com/mmaction/v1.0/recognition/uniformerv2/clipVisualEncoder/vit-base-p16-res224_clip-rgb_20221219-b8a5da86.pth
+2024/12/04 08:47:04 - mmengine - INFO - Inflate: conv1.weight, torch.Size([768, 3, 16, 16]) => torch.Size([768, 3, 1, 16, 16])
+2024/12/04 08:47:04 - mmengine - INFO - Init center: True
+Name of parameter - Initialization information
+
+backbone.class_embedding - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.positional_embedding - torch.Size([197, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.conv1.weight - torch.Size([768, 3, 1, 16, 16]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.ln_pre.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.ln_pre.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.temporal_cls_token - torch.Size([1, 1, 768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.balance - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.resblocks.0.attn.in_proj_weight - torch.Size([2304, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.0.attn.in_proj_bias - torch.Size([2304]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.0.attn.out_proj.weight - torch.Size([768, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.0.attn.out_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.0.ln_1.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.0.ln_1.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.0.mlp.c_fc.weight - torch.Size([3072, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.0.mlp.c_fc.bias - torch.Size([3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.0.mlp.c_proj.weight - torch.Size([768, 3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.0.mlp.c_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.0.ln_2.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.0.ln_2.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.1.attn.in_proj_weight - torch.Size([2304, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.1.attn.in_proj_bias - torch.Size([2304]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.1.attn.out_proj.weight - torch.Size([768, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.1.attn.out_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.1.ln_1.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.1.ln_1.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.1.mlp.c_fc.weight - torch.Size([3072, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.1.mlp.c_fc.bias - torch.Size([3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.1.mlp.c_proj.weight - torch.Size([768, 3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.1.mlp.c_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.1.ln_2.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.1.ln_2.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.2.attn.in_proj_weight - torch.Size([2304, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.2.attn.in_proj_bias - torch.Size([2304]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.2.attn.out_proj.weight - torch.Size([768, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.2.attn.out_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.2.ln_1.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.2.ln_1.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.2.mlp.c_fc.weight - torch.Size([3072, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.2.mlp.c_fc.bias - torch.Size([3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.2.mlp.c_proj.weight - torch.Size([768, 3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.2.mlp.c_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.2.ln_2.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.2.ln_2.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.3.attn.in_proj_weight - torch.Size([2304, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.3.attn.in_proj_bias - torch.Size([2304]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.3.attn.out_proj.weight - torch.Size([768, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.3.attn.out_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.3.ln_1.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.3.ln_1.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.3.mlp.c_fc.weight - torch.Size([3072, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.3.mlp.c_fc.bias - torch.Size([3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.3.mlp.c_proj.weight - torch.Size([768, 3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.3.mlp.c_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.3.ln_2.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.3.ln_2.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.4.attn.in_proj_weight - torch.Size([2304, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.4.attn.in_proj_bias - torch.Size([2304]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.4.attn.out_proj.weight - torch.Size([768, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.4.attn.out_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.4.ln_1.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.4.ln_1.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.4.mlp.c_fc.weight - torch.Size([3072, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.4.mlp.c_fc.bias - torch.Size([3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.4.mlp.c_proj.weight - torch.Size([768, 3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.4.mlp.c_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.4.ln_2.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.4.ln_2.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.5.attn.in_proj_weight - torch.Size([2304, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.5.attn.in_proj_bias - torch.Size([2304]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.5.attn.out_proj.weight - torch.Size([768, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.5.attn.out_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.5.ln_1.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.5.ln_1.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.5.mlp.c_fc.weight - torch.Size([3072, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.5.mlp.c_fc.bias - torch.Size([3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.5.mlp.c_proj.weight - torch.Size([768, 3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.5.mlp.c_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.5.ln_2.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.5.ln_2.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.6.attn.in_proj_weight - torch.Size([2304, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.6.attn.in_proj_bias - torch.Size([2304]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.6.attn.out_proj.weight - torch.Size([768, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.6.attn.out_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.6.ln_1.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.6.ln_1.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.6.mlp.c_fc.weight - torch.Size([3072, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.6.mlp.c_fc.bias - torch.Size([3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.6.mlp.c_proj.weight - torch.Size([768, 3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.6.mlp.c_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.6.ln_2.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.6.ln_2.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.7.attn.in_proj_weight - torch.Size([2304, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.7.attn.in_proj_bias - torch.Size([2304]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.7.attn.out_proj.weight - torch.Size([768, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.7.attn.out_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.7.ln_1.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.7.ln_1.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.7.mlp.c_fc.weight - torch.Size([3072, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.7.mlp.c_fc.bias - torch.Size([3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.7.mlp.c_proj.weight - torch.Size([768, 3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.7.mlp.c_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.7.ln_2.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.7.ln_2.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.8.attn.in_proj_weight - torch.Size([2304, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.8.attn.in_proj_bias - torch.Size([2304]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.8.attn.out_proj.weight - torch.Size([768, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.8.attn.out_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.8.ln_1.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.8.ln_1.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.8.mlp.c_fc.weight - torch.Size([3072, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.8.mlp.c_fc.bias - torch.Size([3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.8.mlp.c_proj.weight - torch.Size([768, 3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.8.mlp.c_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.8.ln_2.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.8.ln_2.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.9.attn.in_proj_weight - torch.Size([2304, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.9.attn.in_proj_bias - torch.Size([2304]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.9.attn.out_proj.weight - torch.Size([768, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.9.attn.out_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.9.ln_1.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.9.ln_1.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.9.mlp.c_fc.weight - torch.Size([3072, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.9.mlp.c_fc.bias - torch.Size([3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.9.mlp.c_proj.weight - torch.Size([768, 3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.9.mlp.c_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.9.ln_2.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.9.ln_2.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.10.attn.in_proj_weight - torch.Size([2304, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.10.attn.in_proj_bias - torch.Size([2304]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.10.attn.out_proj.weight - torch.Size([768, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.10.attn.out_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.10.ln_1.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.10.ln_1.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.10.mlp.c_fc.weight - torch.Size([3072, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.10.mlp.c_fc.bias - torch.Size([3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.10.mlp.c_proj.weight - torch.Size([768, 3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.10.mlp.c_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.10.ln_2.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.10.ln_2.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.11.attn.in_proj_weight - torch.Size([2304, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.11.attn.in_proj_bias - torch.Size([2304]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.11.attn.out_proj.weight - torch.Size([768, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.11.attn.out_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.11.ln_1.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.11.ln_1.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.11.mlp.c_fc.weight - torch.Size([3072, 768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.11.mlp.c_fc.bias - torch.Size([3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.11.mlp.c_proj.weight - torch.Size([768, 3072]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.11.mlp.c_proj.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.11.ln_2.weight - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.resblocks.11.ln_2.bias - torch.Size([768]): 
+Initialized by user-defined `init_weights` in UniFormerV2  
+
+backbone.transformer.dpe.0.weight - torch.Size([768, 1, 3, 3, 3]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dpe.0.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dpe.1.weight - torch.Size([768, 1, 3, 3, 3]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dpe.1.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dpe.2.weight - torch.Size([768, 1, 3, 3, 3]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dpe.2.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dpe.3.weight - torch.Size([768, 1, 3, 3, 3]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dpe.3.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.attn.in_proj_weight - torch.Size([2304, 768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.attn.in_proj_bias - torch.Size([2304]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.attn.out_proj.weight - torch.Size([768, 768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.attn.out_proj.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.ln_1.weight - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.ln_1.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.mlp.c_fc.weight - torch.Size([3072, 768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.mlp.c_fc.bias - torch.Size([3072]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.mlp.c_proj.weight - torch.Size([768, 3072]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.mlp.c_proj.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.ln_2.weight - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.ln_2.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.ln_3.weight - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.0.ln_3.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.attn.in_proj_weight - torch.Size([2304, 768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.attn.in_proj_bias - torch.Size([2304]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.attn.out_proj.weight - torch.Size([768, 768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.attn.out_proj.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.ln_1.weight - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.ln_1.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.mlp.c_fc.weight - torch.Size([3072, 768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.mlp.c_fc.bias - torch.Size([3072]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.mlp.c_proj.weight - torch.Size([768, 3072]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.mlp.c_proj.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.ln_2.weight - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.ln_2.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.ln_3.weight - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.1.ln_3.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.attn.in_proj_weight - torch.Size([2304, 768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.attn.in_proj_bias - torch.Size([2304]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.attn.out_proj.weight - torch.Size([768, 768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.attn.out_proj.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.ln_1.weight - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.ln_1.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.mlp.c_fc.weight - torch.Size([3072, 768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.mlp.c_fc.bias - torch.Size([3072]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.mlp.c_proj.weight - torch.Size([768, 3072]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.mlp.c_proj.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.ln_2.weight - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.ln_2.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.ln_3.weight - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.2.ln_3.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.attn.in_proj_weight - torch.Size([2304, 768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.attn.in_proj_bias - torch.Size([2304]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.attn.out_proj.weight - torch.Size([768, 768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.attn.out_proj.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.ln_1.weight - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.ln_1.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.mlp.c_fc.weight - torch.Size([3072, 768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.mlp.c_fc.bias - torch.Size([3072]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.mlp.c_proj.weight - torch.Size([768, 3072]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.mlp.c_proj.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.ln_2.weight - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.ln_2.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.ln_3.weight - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.dec.3.ln_3.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.norm.weight - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+backbone.transformer.norm.bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of Recognizer3D  
+
+cls_head.fc_cls.weight - torch.Size([4, 768]): 
+TruncNormalInit: a=-2, b=2, mean=0, std=0.02, bias=0 
+
+cls_head.fc_cls.bias - torch.Size([4]): 
+TruncNormalInit: a=-2, b=2, mean=0, std=0.02, bias=0 
+2024/12/04 08:47:04 - mmengine - INFO - Load checkpoint from work_dirs/uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer/epoch_38.pth
+2024/12/04 08:47:04 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/12/04 08:47:04 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/12/04 08:47:04 - mmengine - INFO - Checkpoints will be saved to /home/jupyter-yixuan/mmaction2/work_dirs/uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer.
+2024/12/04 08:49:59 - mmengine - INFO - Epoch(train)  [1][100/567]  base_lr: 4.3802e-07 lr: 1.3688e-08  eta: 3:15:49  time: 1.6789  data_time: 0.0049  memory: 11653  grad_norm: 172.3799  loss: 0.6504  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 0.6504
+2024/12/04 08:52:50 - mmengine - INFO - Epoch(train)  [1][200/567]  base_lr: 5.4385e-07 lr: 1.6995e-08  eta: 3:10:10  time: 1.7136  data_time: 0.0050  memory: 11652  grad_norm: 157.0854  loss: 0.7367  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.7367
+2024/12/04 08:55:42 - mmengine - INFO - Epoch(train)  [1][300/567]  base_lr: 6.4968e-07 lr: 2.0303e-08  eta: 3:07:03  time: 1.7261  data_time: 0.0053  memory: 11652  grad_norm: 194.0073  loss: 0.6821  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 0.6821
+2024/12/04 08:58:35 - mmengine - INFO - Epoch(train)  [1][400/567]  base_lr: 7.5552e-07 lr: 2.3610e-08  eta: 3:04:23  time: 1.7367  data_time: 0.0050  memory: 11652  grad_norm: 191.1304  loss: 0.6885  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 0.6885
+2024/12/04 09:01:29 - mmengine - INFO - Epoch(train)  [1][500/567]  base_lr: 8.6135e-07 lr: 2.6917e-08  eta: 3:01:39  time: 1.7382  data_time: 0.0057  memory: 11652  grad_norm: 155.3616  loss: 0.5838  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.5838
+2024/12/04 09:03:25 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 09:03:25 - mmengine - INFO - Epoch(train)  [1][567/567]  base_lr: 9.3225e-07 lr: 2.9133e-08  eta: 2:59:49  time: 1.7357  data_time: 0.0050  memory: 11652  grad_norm: 214.8622  loss: 0.6511  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.6511
+2024/12/04 09:03:25 - mmengine - INFO - Saving checkpoint at 1 epochs
+2024/12/04 09:04:20 - mmengine - INFO - Epoch(val) [1][95/95]    acc/top1: 0.9204  acc/top5: 1.0000  acc/mean1: 0.9506  confusion_matrix/result: 
+tensor([[118,   0,   0,   0],
+        [  0, 116,   0,   2],
+        [  0,   0, 112,   6],
+        [  4,  19,  29, 348]])
+  data_time: 0.0237  time: 0.5492
+2024/12/04 09:04:21 - mmengine - INFO - The best checkpoint with 0.9204 acc/top1 at 1 epoch is saved to best_acc_top1_epoch_1.pth.
+2024/12/04 09:07:25 - mmengine - INFO - Epoch(train)  [2][100/567]  base_lr: 1.0381e-06 lr: 3.2440e-08  eta: 2:57:45  time: 1.7369  data_time: 0.0072  memory: 11652  grad_norm: 138.1711  loss: 0.5336  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.5336
+2024/12/04 09:10:19 - mmengine - INFO - Epoch(train)  [2][200/567]  base_lr: 1.1439e-06 lr: 3.5747e-08  eta: 2:54:53  time: 1.7396  data_time: 0.0051  memory: 11652  grad_norm: 170.2845  loss: 0.6952  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 0.6952
+2024/12/04 09:13:13 - mmengine - INFO - Epoch(train)  [2][300/567]  base_lr: 1.2497e-06 lr: 3.9055e-08  eta: 2:52:02  time: 1.7423  data_time: 0.0054  memory: 11652  grad_norm: 137.2888  loss: 0.5573  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.5573
+2024/12/04 09:16:07 - mmengine - INFO - Epoch(train)  [2][400/567]  base_lr: 1.3556e-06 lr: 4.2362e-08  eta: 2:49:12  time: 1.7481  data_time: 0.0067  memory: 11652  grad_norm: 129.9161  loss: 0.5588  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 0.5588
+2024/12/04 09:17:05 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 09:19:02 - mmengine - INFO - Epoch(train)  [2][500/567]  base_lr: 1.4614e-06 lr: 4.5669e-08  eta: 2:46:22  time: 1.7494  data_time: 0.0062  memory: 11652  grad_norm: 161.3377  loss: 0.5445  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.5445
+2024/12/04 09:20:59 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 09:20:59 - mmengine - INFO - Epoch(train)  [2][567/567]  base_lr: 1.5323e-06 lr: 4.7885e-08  eta: 2:44:27  time: 1.7463  data_time: 0.0052  memory: 11652  grad_norm: 187.2386  loss: 0.6740  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.6740
+2024/12/04 09:20:59 - mmengine - INFO - Saving checkpoint at 2 epochs
+2024/12/04 09:21:53 - mmengine - INFO - Epoch(val) [2][95/95]    acc/top1: 0.9231  acc/top5: 1.0000  acc/mean1: 0.9503  confusion_matrix/result: 
+tensor([[118,   0,   0,   0],
+        [  0, 116,   0,   2],
+        [  0,   0, 111,   7],
+        [  4,  18,  27, 351]])
+  data_time: 0.0216  time: 0.5448
+2024/12/04 09:21:53 - mmengine - INFO - The previous best checkpoint /home/jupyter-yixuan/mmaction2/work_dirs/uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer/best_acc_top1_epoch_1.pth is removed
+2024/12/04 09:21:54 - mmengine - INFO - The best checkpoint with 0.9231 acc/top1 at 2 epoch is saved to best_acc_top1_epoch_2.pth.
+2024/12/04 09:24:56 - mmengine - INFO - Epoch(train)  [3][100/567]  base_lr: 1.6381e-06 lr: 5.1192e-08  eta: 2:41:49  time: 1.7425  data_time: 0.0071  memory: 11652  grad_norm: 188.9227  loss: 0.7014  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.7014
+2024/12/04 09:27:51 - mmengine - INFO - Epoch(train)  [3][200/567]  base_lr: 1.7440e-06 lr: 5.4499e-08  eta: 2:38:57  time: 1.7496  data_time: 0.0073  memory: 11652  grad_norm: 188.2783  loss: 0.7138  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 0.7138
+2024/12/04 09:30:46 - mmengine - INFO - Epoch(train)  [3][300/567]  base_lr: 1.8498e-06 lr: 5.7806e-08  eta: 2:36:03  time: 1.7468  data_time: 0.0053  memory: 11652  grad_norm: 150.4438  loss: 0.5625  top1_acc: 1.0000  top5_acc: 1.0000  loss_cls: 0.5625
+2024/12/04 09:33:40 - mmengine - INFO - Epoch(train)  [3][400/567]  base_lr: 1.9556e-06 lr: 6.1114e-08  eta: 2:33:09  time: 1.7487  data_time: 0.0052  memory: 11652  grad_norm: 134.0517  loss: 0.5625  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 0.5625
+2024/12/04 09:36:35 - mmengine - INFO - Epoch(train)  [3][500/567]  base_lr: 2.0615e-06 lr: 6.4421e-08  eta: 2:30:17  time: 1.7501  data_time: 0.0054  memory: 11652  grad_norm: 188.2017  loss: 0.6759  top1_acc: 0.3750  top5_acc: 1.0000  loss_cls: 0.6759
+2024/12/04 09:38:32 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 09:38:32 - mmengine - INFO - Epoch(train)  [3][567/567]  base_lr: 2.1324e-06 lr: 6.6637e-08  eta: 2:28:21  time: 1.7490  data_time: 0.0052  memory: 11652  grad_norm: 211.0634  loss: 0.7117  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.7117
+2024/12/04 09:38:32 - mmengine - INFO - Saving checkpoint at 3 epochs
+2024/12/04 09:39:26 - mmengine - INFO - Epoch(val) [3][95/95]    acc/top1: 0.9218  acc/top5: 1.0000  acc/mean1: 0.9512  confusion_matrix/result: 
+tensor([[118,   0,   0,   0],
+        [  0, 116,   0,   2],
+        [  0,   0, 112,   6],
+        [  4,  19,  28, 349]])
+  data_time: 0.0206  time: 0.5446
+2024/12/04 09:42:25 - mmengine - INFO - Epoch(train)  [4][100/567]  base_lr: 2.2382e-06 lr: 6.9944e-08  eta: 2:25:36  time: 1.7484  data_time: 0.0051  memory: 11652  grad_norm: 139.3859  loss: 0.7300  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.7300
+2024/12/04 09:45:19 - mmengine - INFO - Epoch(train)  [4][200/567]  base_lr: 2.3440e-06 lr: 7.3251e-08  eta: 2:22:42  time: 1.7524  data_time: 0.0077  memory: 11652  grad_norm: 231.3759  loss: 0.6589  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 0.6589
+2024/12/04 09:48:13 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 09:48:14 - mmengine - INFO - Epoch(train)  [4][300/567]  base_lr: 2.4499e-06 lr: 7.6558e-08  eta: 2:19:49  time: 1.7510  data_time: 0.0072  memory: 11652  grad_norm: 182.3776  loss: 0.5192  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.5192
+2024/12/04 09:51:09 - mmengine - INFO - Epoch(train)  [4][400/567]  base_lr: 2.5557e-06 lr: 7.9866e-08  eta: 2:16:55  time: 1.7491  data_time: 0.0053  memory: 11652  grad_norm: 191.2111  loss: 0.7190  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 0.7190
+2024/12/04 09:54:04 - mmengine - INFO - Epoch(train)  [4][500/567]  base_lr: 2.6615e-06 lr: 8.3173e-08  eta: 2:14:00  time: 1.7518  data_time: 0.0054  memory: 11652  grad_norm: 132.2632  loss: 0.5898  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.5898
+2024/12/04 09:56:02 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 09:56:02 - mmengine - INFO - Epoch(train)  [4][567/567]  base_lr: 2.7324e-06 lr: 8.5389e-08  eta: 2:12:04  time: 1.7485  data_time: 0.0051  memory: 11652  grad_norm: 167.9779  loss: 0.6623  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.6623
+2024/12/04 09:56:02 - mmengine - INFO - Saving checkpoint at 4 epochs
+2024/12/04 09:56:56 - mmengine - INFO - Epoch(val) [4][95/95]    acc/top1: 0.9244  acc/top5: 1.0000  acc/mean1: 0.9479  confusion_matrix/result: 
+tensor([[118,   0,   0,   0],
+        [  0, 115,   0,   3],
+        [  0,   0, 110,   8],
+        [  4,  16,  26, 354]])
+  data_time: 0.0206  time: 0.5458
+2024/12/04 09:56:56 - mmengine - INFO - The previous best checkpoint /home/jupyter-yixuan/mmaction2/work_dirs/uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer/best_acc_top1_epoch_2.pth is removed
+2024/12/04 09:56:57 - mmengine - INFO - The best checkpoint with 0.9244 acc/top1 at 4 epoch is saved to best_acc_top1_epoch_4.pth.
+2024/12/04 09:59:59 - mmengine - INFO - Epoch(train)  [5][100/567]  base_lr: 2.8383e-06 lr: 8.8696e-08  eta: 2:09:14  time: 1.7468  data_time: 0.0053  memory: 11652  grad_norm: 165.0353  loss: 0.6652  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 0.6652
+2024/12/04 10:02:54 - mmengine - INFO - Epoch(train)  [5][200/567]  base_lr: 2.9441e-06 lr: 9.2003e-08  eta: 2:06:20  time: 1.7473  data_time: 0.0052  memory: 11652  grad_norm: 150.4609  loss: 0.6094  top1_acc: 1.0000  top5_acc: 1.0000  loss_cls: 0.6094
+2024/12/04 10:05:49 - mmengine - INFO - Epoch(train)  [5][300/567]  base_lr: 3.0499e-06 lr: 9.5310e-08  eta: 2:03:25  time: 1.7534  data_time: 0.0055  memory: 11652  grad_norm: 195.2830  loss: 0.6947  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.6947
+2024/12/04 10:08:44 - mmengine - INFO - Epoch(train)  [5][400/567]  base_lr: 3.1558e-06 lr: 9.8618e-08  eta: 2:00:31  time: 1.7515  data_time: 0.0052  memory: 11652  grad_norm: 133.5789  loss: 0.5370  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.5370
+2024/12/04 10:11:40 - mmengine - INFO - Epoch(train)  [5][500/567]  base_lr: 3.2616e-06 lr: 1.0192e-07  eta: 1:57:37  time: 1.7519  data_time: 0.0052  memory: 11652  grad_norm: 171.8042  loss: 0.7885  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.7885
+2024/12/04 10:13:37 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 10:13:37 - mmengine - INFO - Epoch(train)  [5][567/567]  base_lr: 3.3325e-06 lr: 1.0414e-07  eta: 1:55:40  time: 1.7480  data_time: 0.0052  memory: 11652  grad_norm: 126.5569  loss: 0.5722  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.5722
+2024/12/04 10:13:37 - mmengine - INFO - Saving checkpoint at 5 epochs
+2024/12/04 10:14:31 - mmengine - INFO - Epoch(val) [5][95/95]    acc/top1: 0.9218  acc/top5: 1.0000  acc/mean1: 0.9497  confusion_matrix/result: 
+tensor([[118,   0,   0,   0],
+        [  0, 115,   0,   3],
+        [  0,   0, 112,   6],
+        [  4,  17,  29, 350]])
+  data_time: 0.0211  time: 0.5454
+2024/12/04 10:17:29 - mmengine - INFO - Epoch(train)  [6][100/567]  base_lr: 3.3309e-06 lr: 1.0409e-07  eta: 1:52:49  time: 1.7507  data_time: 0.0072  memory: 11652  grad_norm: 162.6375  loss: 0.6161  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 0.6161
+2024/12/04 10:19:23 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 10:20:25 - mmengine - INFO - Epoch(train)  [6][200/567]  base_lr: 3.3262e-06 lr: 1.0394e-07  eta: 1:49:55  time: 1.7484  data_time: 0.0054  memory: 11652  grad_norm: 176.8222  loss: 0.6040  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 0.6040
+2024/12/04 10:23:20 - mmengine - INFO - Epoch(train)  [6][300/567]  base_lr: 3.3182e-06 lr: 1.0369e-07  eta: 1:47:00  time: 1.7537  data_time: 0.0072  memory: 11652  grad_norm: 154.6881  loss: 0.7343  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.7343
+2024/12/04 10:26:15 - mmengine - INFO - Epoch(train)  [6][400/567]  base_lr: 3.3071e-06 lr: 1.0335e-07  eta: 1:44:05  time: 1.7519  data_time: 0.0055  memory: 11652  grad_norm: 180.6610  loss: 0.5302  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 0.5302
+2024/12/04 10:29:10 - mmengine - INFO - Epoch(train)  [6][500/567]  base_lr: 3.2929e-06 lr: 1.0290e-07  eta: 1:41:10  time: 1.7478  data_time: 0.0054  memory: 11652  grad_norm: 125.4044  loss: 0.5183  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.5183
+2024/12/04 10:31:07 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 10:31:07 - mmengine - INFO - Epoch(train)  [6][567/567]  base_lr: 3.2816e-06 lr: 1.0255e-07  eta: 1:39:13  time: 1.7472  data_time: 0.0057  memory: 11652  grad_norm: 222.6490  loss: 0.7532  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.7532
+2024/12/04 10:31:07 - mmengine - INFO - Saving checkpoint at 6 epochs
+2024/12/04 10:32:02 - mmengine - INFO - Epoch(val) [6][95/95]    acc/top1: 0.9363  acc/top5: 1.0000  acc/mean1: 0.9536  confusion_matrix/result: 
+tensor([[118,   0,   0,   0],
+        [  0, 115,   0,   3],
+        [  0,   0, 110,   8],
+        [  3,  16,  18, 363]])
+  data_time: 0.0230  time: 0.5478
+2024/12/04 10:32:02 - mmengine - INFO - The previous best checkpoint /home/jupyter-yixuan/mmaction2/work_dirs/uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer/best_acc_top1_epoch_4.pth is removed
+2024/12/04 10:32:02 - mmengine - INFO - The best checkpoint with 0.9363 acc/top1 at 6 epoch is saved to best_acc_top1_epoch_6.pth.
+2024/12/04 10:35:05 - mmengine - INFO - Epoch(train)  [7][100/567]  base_lr: 3.2622e-06 lr: 1.0194e-07  eta: 1:36:20  time: 1.7527  data_time: 0.0079  memory: 11652  grad_norm: 183.6434  loss: 0.7080  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.7080
+2024/12/04 10:38:00 - mmengine - INFO - Epoch(train)  [7][200/567]  base_lr: 3.2397e-06 lr: 1.0124e-07  eta: 1:33:25  time: 1.7527  data_time: 0.0054  memory: 11652  grad_norm: 186.8218  loss: 0.7137  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.7137
+2024/12/04 10:40:55 - mmengine - INFO - Epoch(train)  [7][300/567]  base_lr: 3.2142e-06 lr: 1.0044e-07  eta: 1:30:30  time: 1.7499  data_time: 0.0053  memory: 11652  grad_norm: 149.2413  loss: 0.6356  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.6356
+2024/12/04 10:43:50 - mmengine - INFO - Epoch(train)  [7][400/567]  base_lr: 3.1858e-06 lr: 9.9556e-08  eta: 1:27:35  time: 1.7507  data_time: 0.0054  memory: 11652  grad_norm: 180.8939  loss: 0.6795  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 0.6795
+2024/12/04 10:46:46 - mmengine - INFO - Epoch(train)  [7][500/567]  base_lr: 3.1545e-06 lr: 9.8578e-08  eta: 1:24:40  time: 1.7517  data_time: 0.0052  memory: 11652  grad_norm: 120.0942  loss: 0.5942  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.5942
+2024/12/04 10:48:43 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 10:48:43 - mmengine - INFO - Epoch(train)  [7][567/567]  base_lr: 3.1319e-06 lr: 9.7873e-08  eta: 1:22:43  time: 1.7521  data_time: 0.0053  memory: 11652  grad_norm: 177.9818  loss: 0.6508  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.6508
+2024/12/04 10:48:43 - mmengine - INFO - Saving checkpoint at 7 epochs
+2024/12/04 10:49:37 - mmengine - INFO - Epoch(val) [7][95/95]    acc/top1: 0.9324  acc/top5: 1.0000  acc/mean1: 0.9487  confusion_matrix/result: 
+tensor([[118,   0,   0,   0],
+        [  0, 115,   0,   3],
+        [  0,   0, 108,  10],
+        [  4,  15,  19, 362]])
+  data_time: 0.0205  time: 0.5455
+2024/12/04 10:50:35 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 10:52:36 - mmengine - INFO - Epoch(train)  [8][100/567]  base_lr: 3.0960e-06 lr: 9.6749e-08  eta: 1:19:50  time: 1.7511  data_time: 0.0054  memory: 11652  grad_norm: 154.9097  loss: 0.5902  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 0.5902
+2024/12/04 10:55:31 - mmengine - INFO - Epoch(train)  [8][200/567]  base_lr: 3.0573e-06 lr: 9.5541e-08  eta: 1:16:55  time: 1.7500  data_time: 0.0053  memory: 11652  grad_norm: 142.0675  loss: 0.5207  top1_acc: 1.0000  top5_acc: 1.0000  loss_cls: 0.5207
+2024/12/04 10:58:26 - mmengine - INFO - Epoch(train)  [8][300/567]  base_lr: 3.0160e-06 lr: 9.4251e-08  eta: 1:14:00  time: 1.7536  data_time: 0.0054  memory: 11652  grad_norm: 174.2247  loss: 0.6741  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.6741
+2024/12/04 11:01:21 - mmengine - INFO - Epoch(train)  [8][400/567]  base_lr: 2.9723e-06 lr: 9.2883e-08  eta: 1:11:05  time: 1.7483  data_time: 0.0054  memory: 11652  grad_norm: 235.6785  loss: 0.8169  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.8169
+2024/12/04 11:04:16 - mmengine - INFO - Epoch(train)  [8][500/567]  base_lr: 2.9260e-06 lr: 9.1439e-08  eta: 1:08:09  time: 1.7507  data_time: 0.0053  memory: 11652  grad_norm: 167.6676  loss: 0.6737  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 0.6737
+2024/12/04 11:06:13 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 11:06:13 - mmengine - INFO - Epoch(train)  [8][567/567]  base_lr: 2.8938e-06 lr: 9.0430e-08  eta: 1:06:12  time: 1.7512  data_time: 0.0079  memory: 11652  grad_norm: 218.1888  loss: 0.7276  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 0.7276
+2024/12/04 11:06:13 - mmengine - INFO - Saving checkpoint at 8 epochs
+2024/12/04 11:07:08 - mmengine - INFO - Epoch(val) [8][95/95]    acc/top1: 0.9350  acc/top5: 1.0000  acc/mean1: 0.9515  confusion_matrix/result: 
+tensor([[118,   0,   0,   0],
+        [  0, 116,   0,   2],
+        [  0,   0, 108,  10],
+        [  4,  15,  18, 363]])
+  data_time: 0.0240  time: 0.5471
+2024/12/04 11:10:07 - mmengine - INFO - Epoch(train)  [9][100/567]  base_lr: 2.8437e-06 lr: 8.8866e-08  eta: 1:03:19  time: 1.7521  data_time: 0.0053  memory: 11652  grad_norm: 209.8915  loss: 0.7390  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.7390
+2024/12/04 11:13:02 - mmengine - INFO - Epoch(train)  [9][200/567]  base_lr: 2.7915e-06 lr: 8.7234e-08  eta: 1:00:23  time: 1.7528  data_time: 0.0055  memory: 11652  grad_norm: 174.0976  loss: 0.6481  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.6481
+2024/12/04 11:15:57 - mmengine - INFO - Epoch(train)  [9][300/567]  base_lr: 2.7373e-06 lr: 8.5539e-08  eta: 0:57:28  time: 1.7545  data_time: 0.0068  memory: 11652  grad_norm: 116.8441  loss: 0.5269  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.5269
+2024/12/04 11:18:52 - mmengine - INFO - Epoch(train)  [9][400/567]  base_lr: 2.6811e-06 lr: 8.3784e-08  eta: 0:54:33  time: 1.7516  data_time: 0.0074  memory: 11652  grad_norm: 229.2541  loss: 0.7796  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.7796
+2024/12/04 11:20:44 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 11:21:48 - mmengine - INFO - Epoch(train)  [9][500/567]  base_lr: 2.6231e-06 lr: 8.1971e-08  eta: 0:51:38  time: 1.7522  data_time: 0.0054  memory: 11652  grad_norm: 163.0919  loss: 0.6314  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 0.6314
+2024/12/04 11:23:45 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 11:23:45 - mmengine - INFO - Epoch(train)  [9][567/567]  base_lr: 2.5833e-06 lr: 8.0728e-08  eta: 0:49:40  time: 1.7500  data_time: 0.0054  memory: 11652  grad_norm: 163.1915  loss: 0.7448  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 0.7448
+2024/12/04 11:23:45 - mmengine - INFO - Saving checkpoint at 9 epochs
+2024/12/04 11:24:39 - mmengine - INFO - Epoch(val) [9][95/95]    acc/top1: 0.9284  acc/top5: 1.0000  acc/mean1: 0.9528  confusion_matrix/result: 
+tensor([[118,   0,   0,   0],
+        [  0, 116,   0,   2],
+        [  0,   0, 111,   7],
+        [  4,  15,  26, 355]])
+  data_time: 0.0217  time: 0.5460
+2024/12/04 11:27:38 - mmengine - INFO - Epoch(train) [10][100/567]  base_lr: 2.5226e-06 lr: 7.8830e-08  eta: 0:46:46  time: 1.7511  data_time: 0.0054  memory: 11652  grad_norm: 154.2396  loss: 0.6465  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.6465
+2024/12/04 11:30:33 - mmengine - INFO - Epoch(train) [10][200/567]  base_lr: 2.4604e-06 lr: 7.6886e-08  eta: 0:43:51  time: 1.7534  data_time: 0.0084  memory: 11652  grad_norm: 143.1241  loss: 0.7569  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 0.7569
+2024/12/04 11:33:28 - mmengine - INFO - Epoch(train) [10][300/567]  base_lr: 2.3968e-06 lr: 7.4901e-08  eta: 0:40:55  time: 1.7519  data_time: 0.0073  memory: 11652  grad_norm: 176.5104  loss: 0.6331  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 0.6331
+2024/12/04 11:36:23 - mmengine - INFO - Epoch(train) [10][400/567]  base_lr: 2.3321e-06 lr: 7.2878e-08  eta: 0:38:00  time: 1.7506  data_time: 0.0054  memory: 11652  grad_norm: 203.7312  loss: 0.7364  top1_acc: 1.0000  top5_acc: 1.0000  loss_cls: 0.7364
+2024/12/04 11:39:19 - mmengine - INFO - Epoch(train) [10][500/567]  base_lr: 2.2663e-06 lr: 7.0821e-08  eta: 0:35:05  time: 1.7521  data_time: 0.0054  memory: 11652  grad_norm: 123.7084  loss: 0.5465  top1_acc: 1.0000  top5_acc: 1.0000  loss_cls: 0.5465
+2024/12/04 11:41:16 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 11:41:16 - mmengine - INFO - Epoch(train) [10][567/567]  base_lr: 2.2217e-06 lr: 6.9427e-08  eta: 0:33:07  time: 1.7520  data_time: 0.0066  memory: 11652  grad_norm: 185.2398  loss: 0.6220  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.6220
+2024/12/04 11:41:16 - mmengine - INFO - Saving checkpoint at 10 epochs
+2024/12/04 11:42:11 - mmengine - INFO - Epoch(val) [10][95/95]    acc/top1: 0.9377  acc/top5: 1.0000  acc/mean1: 0.9557  confusion_matrix/result: 
+tensor([[118,   0,   0,   0],
+        [  0, 116,   0,   2],
+        [  0,   0, 110,   8],
+        [  1,  15,  21, 363]])
+  data_time: 0.0230  time: 0.5478
+2024/12/04 11:42:11 - mmengine - INFO - The previous best checkpoint /home/jupyter-yixuan/mmaction2/work_dirs/uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer/best_acc_top1_epoch_6.pth is removed
+2024/12/04 11:42:12 - mmengine - INFO - The best checkpoint with 0.9377 acc/top1 at 10 epoch is saved to best_acc_top1_epoch_10.pth.
+2024/12/04 11:45:15 - mmengine - INFO - Epoch(train) [11][100/567]  base_lr: 2.1544e-06 lr: 6.7325e-08  eta: 0:30:13  time: 1.7469  data_time: 0.0060  memory: 11652  grad_norm: 137.5080  loss: 0.6293  top1_acc: 0.6250  top5_acc: 1.0000  loss_cls: 0.6293
+2024/12/04 11:48:11 - mmengine - INFO - Epoch(train) [11][200/567]  base_lr: 2.0865e-06 lr: 6.5202e-08  eta: 0:27:17  time: 1.7540  data_time: 0.0055  memory: 11652  grad_norm: 162.0195  loss: 0.6043  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 0.6043
+2024/12/04 11:51:06 - mmengine - INFO - Epoch(train) [11][300/567]  base_lr: 2.0180e-06 lr: 6.3062e-08  eta: 0:24:22  time: 1.7570  data_time: 0.0059  memory: 11652  grad_norm: 165.0191  loss: 0.5377  top1_acc: 0.8750  top5_acc: 1.0000  loss_cls: 0.5377
+2024/12/04 11:51:58 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 11:54:01 - mmengine - INFO - Epoch(train) [11][400/567]  base_lr: 1.9491e-06 lr: 6.0909e-08  eta: 0:21:27  time: 1.7514  data_time: 0.0053  memory: 11652  grad_norm: 163.8578  loss: 0.6432  top1_acc: 1.0000  top5_acc: 1.0000  loss_cls: 0.6432
+2024/12/04 11:56:57 - mmengine - INFO - Epoch(train) [11][500/567]  base_lr: 1.8800e-06 lr: 5.8748e-08  eta: 0:18:31  time: 1.7600  data_time: 0.0056  memory: 11652  grad_norm: 133.3186  loss: 0.5542  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.5542
+2024/12/04 11:58:54 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 11:58:54 - mmengine - INFO - Epoch(train) [11][567/567]  base_lr: 1.8336e-06 lr: 5.7299e-08  eta: 0:16:34  time: 1.7521  data_time: 0.0051  memory: 11652  grad_norm: 150.2459  loss: 0.6095  top1_acc: 0.2500  top5_acc: 1.0000  loss_cls: 0.6095
+2024/12/04 11:58:54 - mmengine - INFO - Saving checkpoint at 11 epochs
+2024/12/04 11:59:48 - mmengine - INFO - Epoch(val) [11][95/95]    acc/top1: 0.9310  acc/top5: 1.0000  acc/mean1: 0.9541  confusion_matrix/result: 
+tensor([[118,   0,   0,   0],
+        [  0, 115,   0,   3],
+        [  0,   0, 112,   6],
+        [  1,  15,  27, 357]])
+  data_time: 0.0202  time: 0.5454
+2024/12/04 12:02:47 - mmengine - INFO - Epoch(train) [12][100/567]  base_lr: 1.7643e-06 lr: 5.5136e-08  eta: 0:13:39  time: 1.7490  data_time: 0.0075  memory: 11652  grad_norm: 135.0702  loss: 0.5982  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.5982
+2024/12/04 12:05:42 - mmengine - INFO - Epoch(train) [12][200/567]  base_lr: 1.6953e-06 lr: 5.2977e-08  eta: 0:10:43  time: 1.7496  data_time: 0.0054  memory: 11652  grad_norm: 216.0763  loss: 0.6654  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.6654
+2024/12/04 12:08:38 - mmengine - INFO - Epoch(train) [12][300/567]  base_lr: 1.6265e-06 lr: 5.0828e-08  eta: 0:07:48  time: 1.7567  data_time: 0.0072  memory: 11652  grad_norm: 174.5290  loss: 0.6191  top1_acc: 0.5000  top5_acc: 1.0000  loss_cls: 0.6191
+2024/12/04 12:11:33 - mmengine - INFO - Epoch(train) [12][400/567]  base_lr: 1.5582e-06 lr: 4.8693e-08  eta: 0:04:52  time: 1.7510  data_time: 0.0054  memory: 11652  grad_norm: 178.4903  loss: 0.6329  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.6329
+2024/12/04 12:14:29 - mmengine - INFO - Epoch(train) [12][500/567]  base_lr: 1.4904e-06 lr: 4.6575e-08  eta: 0:01:57  time: 1.7566  data_time: 0.0084  memory: 11652  grad_norm: 181.3606  loss: 0.5227  top1_acc: 1.0000  top5_acc: 1.0000  loss_cls: 0.5227
+2024/12/04 12:16:26 - mmengine - INFO - Exp name: uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer_20241204_084700
+2024/12/04 12:16:26 - mmengine - INFO - Epoch(train) [12][567/567]  base_lr: 1.4454e-06 lr: 4.5169e-08  eta: 0:00:00  time: 1.7503  data_time: 0.0070  memory: 11652  grad_norm: 187.8548  loss: 0.6632  top1_acc: 0.7500  top5_acc: 1.0000  loss_cls: 0.6632
+2024/12/04 12:16:26 - mmengine - INFO - Saving checkpoint at 12 epochs
+2024/12/04 12:17:20 - mmengine - INFO - Epoch(val) [12][95/95]    acc/top1: 0.9337  acc/top5: 1.0000  acc/mean1: 0.9523  confusion_matrix/result: 
+tensor([[118,   0,   0,   0],
+        [  0, 115,   0,   3],
+        [  0,   0, 110,   8],
+        [  3,  16,  20, 361]])
+  data_time: 0.0203  time: 0.5455

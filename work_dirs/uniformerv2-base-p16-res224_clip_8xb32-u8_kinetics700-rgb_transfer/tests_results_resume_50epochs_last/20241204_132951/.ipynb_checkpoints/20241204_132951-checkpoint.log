@@ -1,0 +1,467 @@
+2024/12/04 13:29:51 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.20 (default, Oct  3 2024, 15:24:27) [GCC 11.2.0]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 559281049
+    GPU 0: Tesla V100-PCIE-16GB
+    CUDA_HOME: /usr/local/cuda
+    NVCC: Cuda compilation tools, release 11.1, V11.1.74
+    GCC: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+    PyTorch: 2.1.2
+    PyTorch compiling details: PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201703
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.1.1 (Git Hash 64f6bcbcbab628e96f33a62c3e975f8535a7bde4)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.8
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_90,code=sm_90;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.7
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.8, CUDNN_VERSION=8.7.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=old-style-cast -Wno-invalid-partial-specialization -Wno-unused-private-field -Wno-aligned-allocation-unavailable -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Werror=cast-function-type -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_DISABLE_GPU_ASSERTS=ON, TORCH_VERSION=2.1.2, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.16.2
+    OpenCV: 4.10.0
+    MMEngine: 0.10.5
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 559281049
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+2024/12/04 13:29:51 - mmengine - INFO - Config:
+ann_file_test = 'data/normal_vs_3critical/normal_vs_3critical_test.txt'
+ann_file_train = 'data/normal_vs_3critical/normal_vs_3critical_train.txt'
+ann_file_val = 'data/normal_vs_3critical/normal_vs_3critical_val.txt'
+auto_scale_lr = dict(base_batch_size=256, enable=True)
+base_lr = 3.3325e-06
+data_root = 'data/normal_vs_3critical/train'
+data_root_test = 'data/normal_vs_3critical/test'
+data_root_val = 'data/normal_vs_3critical/val'
+dataset_type = 'VideoDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=1,
+        max_keep_ckpts=20,
+        save_best='auto',
+        save_last=True,
+        save_optimizer=True,
+        type='CheckpointHook'),
+    logger=dict(ignore_last=False, interval=100, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    runtime_info=dict(type='RuntimeInfoHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    sync_buffers=dict(type='SyncBuffersHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(draw_confusion_matrix=True, type='VisualizationHook'))
+default_scope = 'mmaction'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+file_client_args = dict(io_backend='disk')
+launcher = 'none'
+load_from = 'work_dirs/uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer/resume_50_checkpoints/epoch_12.pth'
+log_level = 'INFO'
+log_processor = dict(by_epoch=True, type='LogProcessor', window_size=20)
+model = dict(
+    backbone=dict(
+        backbone_drop_path_rate=0.0,
+        clip_pretrained=True,
+        double_lmhra=True,
+        drop_path_rate=0.0,
+        dw_reduction=1.5,
+        heads=12,
+        input_resolution=224,
+        layers=12,
+        mlp_dropout=[
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+        ],
+        mlp_factor=4.0,
+        n_dim=768,
+        n_head=12,
+        n_layers=4,
+        no_lmhra=True,
+        patch_size=16,
+        pretrained='ViT-B/16',
+        return_list=[
+            8,
+            9,
+            10,
+            11,
+        ],
+        t_size=8,
+        temporal_downsample=False,
+        type='UniFormerV2',
+        width=768),
+    cls_head=dict(
+        average_clips='prob',
+        dropout_ratio=0.5,
+        in_channels=768,
+        loss_cls=dict(
+            class_weight=[
+                1.0,
+                1.0,
+                1.0,
+                0.3,
+            ],
+            loss_weight=1.0,
+            type='CrossEntropyLoss'),
+        num_classes=4,
+        type='UniFormerHead'),
+    data_preprocessor=dict(
+        format_shape='NCTHW',
+        mean=[
+            114.75,
+            114.75,
+            114.75,
+        ],
+        std=[
+            57.375,
+            57.375,
+            57.375,
+        ],
+        type='ActionDataPreprocessor'),
+    type='Recognizer3D')
+num_frames = 8
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=20, norm_type=2),
+    optimizer=dict(
+        betas=(
+            0.9,
+            0.999,
+        ), lr=3.3325e-06, type='AdamW', weight_decay=0.05),
+    paramwise_cfg=dict(bias_decay_mult=0.0, norm_decay_mult=0.0))
+param_scheduler = [
+    dict(
+        begin=0,
+        by_epoch=True,
+        convert_to_iter_based=True,
+        end=5,
+        start_factor=0.1,
+        type='LinearLR'),
+    dict(
+        T_max=12,
+        begin=5,
+        by_epoch=True,
+        convert_to_iter_based=True,
+        end=12,
+        eta_min_ratio=0.1,
+        type='CosineAnnealingLR'),
+]
+resume = False
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='data/normal_vs_3critical/normal_vs_3critical_test.txt',
+        data_prefix=dict(video='data/normal_vs_3critical/test'),
+        pipeline=[
+            dict(io_backend='disk', type='DecordInit'),
+            dict(
+                clip_len=8, num_clips=4, test_mode=True, type='UniformSample'),
+            dict(type='DecordDecode'),
+            dict(scale=(
+                -1,
+                224,
+            ), type='Resize'),
+            dict(crop_size=224, type='ThreeCrop'),
+            dict(input_format='NCTHW', type='FormatShape'),
+            dict(type='PackActionInputs'),
+        ],
+        test_mode=True,
+        type='VideoDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(metrics=[
+    dict(type='AccMetric'),
+    dict(num_classes=4, type='ConfusionMatrix'),
+])
+test_pipeline = [
+    dict(io_backend='disk', type='DecordInit'),
+    dict(clip_len=8, num_clips=4, test_mode=True, type='UniformSample'),
+    dict(type='DecordDecode'),
+    dict(scale=(
+        -1,
+        224,
+    ), type='Resize'),
+    dict(crop_size=224, type='ThreeCrop'),
+    dict(input_format='NCTHW', type='FormatShape'),
+    dict(type='PackActionInputs'),
+]
+train_cfg = dict(
+    max_epochs=12, type='EpochBasedTrainLoop', val_begin=1, val_interval=1)
+train_dataloader = dict(
+    batch_size=8,
+    dataset=dict(
+        ann_file='data/normal_vs_3critical/normal_vs_3critical_train.txt',
+        data_prefix=dict(video='data/normal_vs_3critical/train'),
+        pipeline=[
+            dict(io_backend='disk', type='DecordInit'),
+            dict(clip_len=8, num_clips=1, type='UniformSample'),
+            dict(type='DecordDecode'),
+            dict(scale=(
+                -1,
+                256,
+            ), type='Resize'),
+            dict(
+                magnitude=7,
+                num_layers=4,
+                op='RandAugment',
+                type='PytorchVideoWrapper'),
+            dict(type='RandomResizedCrop'),
+            dict(keep_ratio=False, scale=(
+                224,
+                224,
+            ), type='Resize'),
+            dict(flip_ratio=0.5, type='Flip'),
+            dict(input_format='NCTHW', type='FormatShape'),
+            dict(type='PackActionInputs'),
+        ],
+        type='VideoDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(io_backend='disk', type='DecordInit'),
+    dict(clip_len=8, num_clips=1, type='UniformSample'),
+    dict(type='DecordDecode'),
+    dict(scale=(
+        -1,
+        256,
+    ), type='Resize'),
+    dict(
+        magnitude=7,
+        num_layers=4,
+        op='RandAugment',
+        type='PytorchVideoWrapper'),
+    dict(type='RandomResizedCrop'),
+    dict(keep_ratio=False, scale=(
+        224,
+        224,
+    ), type='Resize'),
+    dict(flip_ratio=0.5, type='Flip'),
+    dict(input_format='NCTHW', type='FormatShape'),
+    dict(type='PackActionInputs'),
+]
+val_cfg = dict(type='ValLoop')
+val_dataloader = dict(
+    batch_size=8,
+    dataset=dict(
+        ann_file='data/normal_vs_3critical/normal_vs_3critical_val.txt',
+        data_prefix=dict(video='data/normal_vs_3critical/val'),
+        pipeline=[
+            dict(io_backend='disk', type='DecordInit'),
+            dict(
+                clip_len=8, num_clips=1, test_mode=True, type='UniformSample'),
+            dict(type='DecordDecode'),
+            dict(scale=(
+                -1,
+                224,
+            ), type='Resize'),
+            dict(crop_size=224, type='CenterCrop'),
+            dict(input_format='NCTHW', type='FormatShape'),
+            dict(type='PackActionInputs'),
+        ],
+        test_mode=True,
+        type='VideoDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(metrics=[
+    dict(type='AccMetric'),
+    dict(num_classes=4, type='ConfusionMatrix'),
+])
+val_pipeline = [
+    dict(io_backend='disk', type='DecordInit'),
+    dict(clip_len=8, num_clips=1, test_mode=True, type='UniformSample'),
+    dict(type='DecordDecode'),
+    dict(scale=(
+        -1,
+        224,
+    ), type='Resize'),
+    dict(crop_size=224, type='CenterCrop'),
+    dict(input_format='NCTHW', type='FormatShape'),
+    dict(type='PackActionInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    type='ActionVisualizer', vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = 'work_dirs/uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer/tests_results_resume_50epochs_last'
+
+2024/12/04 13:29:52 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:52 - mmengine - INFO - No L_MHRA: True
+2024/12/04 13:29:52 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 13:29:52 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:52 - mmengine - INFO - No L_MHRA: True
+2024/12/04 13:29:52 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 13:29:52 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:52 - mmengine - INFO - No L_MHRA: True
+2024/12/04 13:29:52 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 13:29:52 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:52 - mmengine - INFO - No L_MHRA: True
+2024/12/04 13:29:52 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 13:29:52 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:52 - mmengine - INFO - No L_MHRA: True
+2024/12/04 13:29:52 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 13:29:52 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:52 - mmengine - INFO - No L_MHRA: True
+2024/12/04 13:29:52 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 13:29:53 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:53 - mmengine - INFO - No L_MHRA: True
+2024/12/04 13:29:53 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 13:29:53 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:53 - mmengine - INFO - No L_MHRA: True
+2024/12/04 13:29:53 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 13:29:53 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:53 - mmengine - INFO - No L_MHRA: True
+2024/12/04 13:29:53 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 13:29:53 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:53 - mmengine - INFO - No L_MHRA: True
+2024/12/04 13:29:53 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 13:29:53 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:53 - mmengine - INFO - No L_MHRA: True
+2024/12/04 13:29:53 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 13:29:53 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:53 - mmengine - INFO - No L_MHRA: True
+2024/12/04 13:29:53 - mmengine - INFO - Double L_MHRA: True
+2024/12/04 13:29:53 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:53 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:53 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:53 - mmengine - INFO - Drop path rate: 0.0
+2024/12/04 13:29:54 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+2024/12/04 13:29:54 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) VisualizationHook                  
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) VisualizationHook                  
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+2024/12/04 13:29:55 - mmengine - INFO - Load checkpoint from work_dirs/uniformerv2-base-p16-res224_clip_8xb32-u8_kinetics700-rgb_transfer/resume_50_checkpoints/epoch_12.pth
+2024/12/04 13:29:55 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/12/04 13:29:55 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/12/04 13:29:55 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/12/04 13:29:55 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/12/04 13:29:55 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/12/04 13:29:55 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/12/04 13:29:55 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/12/04 13:29:55 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/12/04 13:29:55 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/12/04 13:29:55 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/12/04 13:29:55 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/12/04 13:29:55 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/12/04 13:29:55 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/12/04 13:29:55 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/12/04 13:29:55 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/12/04 13:29:55 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/12/04 13:31:14 - mmengine - INFO - Epoch(test) [100/754]    eta: 0:08:34  time: 0.7628  data_time: 0.0026  memory: 1500  
+2024/12/04 13:32:31 - mmengine - INFO - Epoch(test) [200/754]    eta: 0:07:12  time: 0.7765  data_time: 0.0026  memory: 1500  
+2024/12/04 13:33:49 - mmengine - INFO - Epoch(test) [300/754]    eta: 0:05:54  time: 0.7797  data_time: 0.0035  memory: 1500  
+2024/12/04 13:35:07 - mmengine - INFO - Epoch(test) [400/754]    eta: 0:04:36  time: 0.7849  data_time: 0.0041  memory: 1500  
+2024/12/04 13:36:26 - mmengine - INFO - Epoch(test) [500/754]    eta: 0:03:18  time: 0.7850  data_time: 0.0027  memory: 1500  
+2024/12/04 13:37:44 - mmengine - INFO - Epoch(test) [600/754]    eta: 0:02:00  time: 0.7879  data_time: 0.0025  memory: 1500  
+2024/12/04 13:39:03 - mmengine - INFO - Epoch(test) [700/754]    eta: 0:00:42  time: 0.7872  data_time: 0.0027  memory: 1500  
+2024/12/04 13:39:45 - mmengine - INFO - Epoch(test) [754/754]    acc/top1: 0.9363  acc/top5: 1.0000  acc/mean1: 0.9536  confusion_matrix/result: 
+tensor([[118,   0,   0,   0],
+        [  0, 116,   0,   2],
+        [  0,   0, 109,   9],
+        [  1,  20,  16, 363]])
+  data_time: 0.0045  time: 0.7830

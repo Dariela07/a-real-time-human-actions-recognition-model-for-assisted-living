@@ -3,8 +3,8 @@ This project is developed using MMAction2 Framework to predict Falls, Staggering
 3	Code Structure
 
 The code is organised in a modular approach. Its main components are outlined below.
-•	“config” folder holds all model configuration scripts. In each config file, the inherited based model, training, validation and test pipelines, data loaders, and model training settings, are defined. 
-•	“mmaction2/configs/recognition/slowfast” holds the downloaded pretrained models and customised models for SlowFast. 
+- “config” folder holds all model configuration scripts. In each config file, the inherited based model, training, validation and test pipelines, data loaders, and model training settings, are defined. 
+-	“mmaction2/configs/recognition/slowfast” holds the downloaded pretrained models and customised models for SlowFast. 
 •	“mmaction2/configs/recognition/i3d”  contains models for I3D. 
 •	“mmaction2/configs/recognition/uniformerv2” contains defined models for UniFormer.
 •	 “mmaction2/configs/recognition/timesformer” holds all models for TimeSformer.

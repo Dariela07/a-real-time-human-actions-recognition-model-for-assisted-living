@@ -4,11 +4,9 @@
 This project is developed using MMAction2 Framework to predict Falls, Staggering and Chest Pain from normal daily activities. 
 
 ##	Dataset Creation
-This study utilised the NTU RGB+D Action Recognition Dataset (J. Liu et al., 2019). All RGB video samples of Falling (948 videos), Staggering (948 videos), and Chest pain (948 videos) in the “Medical Conditions” category were selected to represent dangerous scenarios. The “Normal Scenario” class was formed by randomly selecting 80 videos from each of the 40 classes in the “Daily Actions” category to include a larger sample size (3,200 videos) with a wide diversity of daily activities, which simulate real-life conditions. 
+The NTU RGB+D Action Recognition Dataset was utilized for this study. It included 948 videos each from the 'Falling', 'Staggering', and 'Chest Pain' categories within the 'Medical Conditions' section. For the 'Normal Scenario' class, 80 videos were randomly selected from each of the 40 'Daily Actions' categories, resulting in a diverse set of 3,200 videos depicting various everyday activities.
 
-
-The dataset was split into training, validation and testing sets, in proportion of 75%, 12.5% and 12.5% respectively. The splitting process ensured that the proportion of the four classes remained the same in training, testing and validation sets. Then, feature-label mapping was performed. An annotation text file for each set was created, listing the relative video path with its corresponding label. The dataset creation and label mapping were performed in “customise_datasets.ipynb”, which is located in the main folder. The created training, validation and testing datasets were saved in “mmaction2/data/normal_vs_3critical”, including both videos and the annotation test files. 
-
+The dataset was split into training, validation, and testing segments with proportions of 75%, 12.5%, and 12.5% respectively, ensuring consistent representation across all classes. Features were mapped to labels, and annotation files were created, detailing video paths and corresponding labels. All procedures were documented and executed in the 'customise_datasets.ipynb' notebook, located in 'mmaction2/data/normal_vs_3critical', which includes both videos and their annotations.
 
 ##	Code Structure
 The code is organised in a modular approach. Its main components are outlined below.

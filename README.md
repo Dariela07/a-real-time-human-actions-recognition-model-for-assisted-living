@@ -1,18 +1,27 @@
+
+# A Real-Time Human Action Recognition Model for Assisted Living
+
 This project is developed using MMAction2 Framework to predict Falls, Staggering and Chest Pain from normal daily activities. 
 
-3	Code Structure
+##	Dataset Creation
+This study utilised the NTU RGB+D Action Recognition Dataset (J. Liu et al., 2019). All RGB video samples of Falling (948 videos), Staggering (948 videos), and Chest pain (948 videos) in the “Medical Conditions” category were selected to represent dangerous scenarios. The “Normal Scenario” class was formed by randomly selecting 80 videos from each of the 40 classes in the “Daily Actions” category to include a larger sample size (3,200 videos) with a wide diversity of daily activities, which simulate real-life conditions. 
 
+
+The dataset was split into training, validation and testing sets, in proportion of 75%, 12.5% and 12.5% respectively. The splitting process ensured that the proportion of the four classes remained the same in training, testing and validation sets. Then, feature-label mapping was performed. An annotation text file for each set was created, listing the relative video path with its corresponding label. The dataset creation and label mapping were performed in “customise_datasets.ipynb”, which is located in the main folder. The created training, validation and testing datasets were saved in “mmaction2/data/normal_vs_3critical”, including both videos and the annotation test files. 
+
+
+##	Code Structure
 The code is organised in a modular approach. Its main components are outlined below.
 - “config” folder holds all model configuration scripts. In each config file, the inherited based model, training, validation and test pipelines, data loaders, and model training settings, are defined. 
 -	“mmaction2/configs/recognition/slowfast” holds the downloaded pretrained models and customised models for SlowFast. 
-•	“mmaction2/configs/recognition/i3d”  contains models for I3D. 
-•	“mmaction2/configs/recognition/uniformerv2” contains defined models for UniFormer.
-•	 “mmaction2/configs/recognition/timesformer” holds all models for TimeSformer.
-•	The model training script is located at “mmaction2/tools/train.py”, and the testing script is defined in “mmaction2/tools/test.py”
-•	All training and testing logs, including model checkpoints, are saved in “mmaction2/work_dirs”. 
-•	The script used for calculating metrics (except for FLOPs and Parameters) and ploting graphs is located at “mmaction2/1_Evaluation_Plots_and_Investigation/evaluation_metric_analysis.ipynb”. Plots and analysis results presented in the report are located at the same folder “mmaction2/1_Evaluation_Plots_and_Investigation”
-•	Parameter size and Flops were calculated by calling “mmaction2/tools/analysis_tools/get_flops.py”
-•	The script for loading model checkpoints and making inference for entire test data is located at “mmaction2/ Inference_test_data.py”
-•	The script for make inference based on a model config file, a checkpoint file and a video path is located at “mmaction2/Inference.py”. The same code for calling using command-line arguments is defined at “mmaction2/Inference2.py”
-![Uploading image.png…]()
+-	“mmaction2/configs/recognition/i3d”  contains models for I3D. 
+-	“mmaction2/configs/recognition/uniformerv2” contains defined models for UniFormer.
+-	 “mmaction2/configs/recognition/timesformer” holds all models for TimeSformer.
+-	The model training script is located at “mmaction2/tools/train.py”, and the testing script is defined in “mmaction2/tools/test.py”
+-	All training and testing logs, including model checkpoints, are saved in “mmaction2/work_dirs”. 
+-	The script used for calculating metrics (except for FLOPs and Parameters) and ploting graphs is located at “mmaction2/1_Evaluation_Plots_and_Investigation/evaluation_metric_analysis.ipynb”. Plots and analysis results presented in the report are located at the same folder “mmaction2/1_Evaluation_Plots_and_Investigation”
+-	Parameter size and Flops were calculated by calling “mmaction2/tools/analysis_tools/get_flops.py”
+-	The script for loading model checkpoints and making inference for entire test data is located at “mmaction2/ Inference_test_data.py”
+-	The script for make inference based on a model config file, a checkpoint file and a video path is located at “mmaction2/Inference.py”. The same code for calling using command-line arguments is defined at “mmaction2/Inference2.py”
+
 
